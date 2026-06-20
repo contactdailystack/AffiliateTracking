@@ -212,6 +212,18 @@ services:
     networks:
       - mvp-network
 
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: mvp-tunnel
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - nginx
+    restart: unless-stopped
+    networks:
+      - mvp-network
+
 volumes:
   mvp_pg_data:
 
