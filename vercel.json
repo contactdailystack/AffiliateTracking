@@ -1,6 +1,17 @@
 {
   "version": 2,
-  "outputDirectory": "mvp/frontend",
+  "builds": [
+    {
+      "src": "mvp/frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/mvp/frontend/$1"
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }
