@@ -1,0 +1,18 @@
+# Ignore all backend and non-frontend folders to prevent Vercel from trying to build Python serverless functions
+mvp/api/
+mvp/worker/
+mvp/db/
+mvp/tests/
+wordpress-plugin/
+.venv/
+.agents/
+.continue/
+docker-compose.yml
+docker-compose.prod.yml
+docker-compose.test.yml
+compose.ps1
+deploy-prod.ps1
+dev-test.ps1
+pyproject.toml
+*.md
+*.txt
