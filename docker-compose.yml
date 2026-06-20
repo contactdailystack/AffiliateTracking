@@ -212,12 +212,12 @@ services:
     networks:
       - mvp-network
 
-  tunnel:
-    image: cloudflare/cloudflared:latest
-    container_name: mvp-tunnel
-    command: tunnel --no-autoupdate run
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: mvp-ngrok
+    command: http nginx:80 --domain=${NGROK_DOMAIN}
     environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
     depends_on:
       - nginx
     restart: unless-stopped
