@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "outputDirectory": "mvp/frontend",
+  "cleanUrls": true,
+  "trailingSlash": false
+}

@@ -1,0 +1,220 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mvp-postgres
+    networks:
+      - mvp-network
+    environment:
+      POSTGRES_USER: mvp
+      POSTGRES_PASSWORD: mvp
+      POSTGRES_DB: mvp
+    ports:
+      - "5432:5432"
+    volumes:
+      - mvp_pg_data:/var/lib/postgresql/data
+      - ./mvp/db/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./mvp/db/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mvp -d mvp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: mvp-redis
+    networks:
+      - mvp-network
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: mvp/api/Dockerfile
+    container_name: mvp-api
+    command:
+      - sh
+      - -c
+      - >-
+        gunicorn -k uvicorn.workers.UvicornWorker
+        -w ${GUNICORN_WORKERS:-2}
+        --timeout ${GUNICORN_TIMEOUT:-120}
+        --access-logfile -
+        --error-logfile -
+        --capture-output
+        -b ${GUNICORN_BIND:-0.0.0.0:8000}
+        mvp.api.main:app
+    environment:
+      APP_NAME: "Affiliate Tracking Integrity Monitoring"
+      APP_ENV: "production"
+      APP_VERSION: "local"
+      LOG_LEVEL: "INFO"
+      DATABASE_URL: postgresql+psycopg://mvp:mvp@postgres:5432/mvp
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      GUNICORN_WORKERS: "2"
+      GUNICORN_TIMEOUT: "120"
+      GUNICORN_BIND: "0.0.0.0:8000"
+      AUTH_MODE: ${AUTH_MODE:-local}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:-}
+      SUPABASE_JWT_SECRET: ${SUPABASE_JWT_SECRET:-}
+      SUPABASE_JWT_ISSUER: ${SUPABASE_JWT_ISSUER:-}
+      SUPABASE_JWT_AUDIENCE: ${SUPABASE_JWT_AUDIENCE:-authenticated}
+      SUPABASE_JWKS_URL: ${SUPABASE_JWKS_URL:-}
+      SCAN_ALLOWED_HOSTS: ${SCAN_ALLOWED_HOSTS:-}
+      SCAN_DENIED_HOSTS: ${SCAN_DENIED_HOSTS:-}
+      SCAN_ALLOWED_CIDRS: ${SCAN_ALLOWED_CIDRS:-}
+      SCAN_DENIED_CIDRS: ${SCAN_DENIED_CIDRS:-}
+      SCAN_ALLOW_PROXY_URLS: ${SCAN_ALLOW_PROXY_URLS:-false}
+      UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL:-}
+      UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN:-}
+      EMAIL_FROM: "mvp@example.com"
+      SMTP_HOST: ""
+      SMTP_PORT: ""
+      SMTP_USER: ""
+      SMTP_PASS: ""
+      TELEGRAM_BOT_TOKEN: ""
+      TELEGRAM_CHAT_ID: ""
+      API_KEY_SECRET: ${API_KEY_SECRET:-change-me}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-me}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL:-}
+      STRIPE_PRICING_TABLE_ID: ${STRIPE_PRICING_TABLE_ID:-}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      PYTHONPATH: "/app/mvp:/app"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import httpx; raise SystemExit(0 if httpx.get('http://localhost:8000/readyz', timeout=5).status_code == 200 else 1)\""]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    init: true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - mvp-network
+    working_dir: /app
+
+  worker:
+    build:
+      context: .
+      dockerfile: mvp/worker/Dockerfile
+    container_name: mvp-worker
+    command:
+      - sh
+      - -c
+      - >-
+        celery -A mvp.worker.celery_app worker
+        --loglevel=${CELERY_LOG_LEVEL:-INFO}
+        --concurrency=${CELERY_CONCURRENCY:-4}
+        --prefetch-multiplier=${CELERY_PREFETCH_MULTIPLIER:-1}
+        --max-tasks-per-child=${CELERY_MAX_TASKS_PER_CHILD:-100}
+    environment:
+      APP_NAME: "Affiliate Tracking Integrity Monitoring"
+      APP_ENV: "production"
+      APP_VERSION: "local"
+      LOG_LEVEL: "INFO"
+      DATABASE_URL: postgresql+psycopg://mvp:mvp@postgres:5432/mvp
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      CELERY_LOG_LEVEL: "INFO"
+      CELERY_CONCURRENCY: "4"
+      CELERY_PREFETCH_MULTIPLIER: "1"
+      CELERY_MAX_TASKS_PER_CHILD: "100"
+      AUTH_MODE: ${AUTH_MODE:-local}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:-}
+      SUPABASE_JWT_SECRET: ${SUPABASE_JWT_SECRET:-}
+      SUPABASE_JWT_ISSUER: ${SUPABASE_JWT_ISSUER:-}
+      SUPABASE_JWT_AUDIENCE: ${SUPABASE_JWT_AUDIENCE:-authenticated}
+      SUPABASE_JWKS_URL: ${SUPABASE_JWKS_URL:-}
+      SCAN_ALLOWED_HOSTS: ${SCAN_ALLOWED_HOSTS:-}
+      SCAN_DENIED_HOSTS: ${SCAN_DENIED_HOSTS:-}
+      SCAN_ALLOWED_CIDRS: ${SCAN_ALLOWED_CIDRS:-}
+      SCAN_DENIED_CIDRS: ${SCAN_DENIED_CIDRS:-}
+      SCAN_ALLOW_PROXY_URLS: ${SCAN_ALLOW_PROXY_URLS:-false}
+      UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL:-}
+      UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN:-}
+      SMTP_HOST: ""
+      SMTP_PORT: ""
+      SMTP_USER: ""
+      SMTP_PASS: ""
+      ALERT_RECIPIENTS: ""
+      TELEGRAM_BOT_TOKEN: ""
+      TELEGRAM_CHAT_ID: ""
+      API_KEY_SECRET: ${API_KEY_SECRET:-change-me}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-me}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL:-}
+      STRIPE_PRICING_TABLE_ID: ${STRIPE_PRICING_TABLE_ID:-}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      PYTHONPATH: "/app/mvp:/app"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A mvp.worker.celery_app inspect ping --timeout=5"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    init: true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - mvp-network
+    working_dir: /app
+
+  nginx:
+    image: nginx:alpine
+    container_name: mvp-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./mvp/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://api:8000/health >/dev/null 2>&1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - mvp-network
+
+volumes:
+  mvp_pg_data:
+
+networks:
+  mvp-network:
+    driver: bridge

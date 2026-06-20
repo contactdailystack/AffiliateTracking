@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Lint
+        run: |
+          ruff format --check mvp
+          ruff check --select E9,F63,F7,F82 --ignore E501 mvp
+
+  unit-test:
+    runs-on: ubuntu-latest
+    env:
+      API_KEY_SECRET: test-secret
+      JWT_SECRET_KEY: test-jwt-secret
+      PYTHONPATH: ${{ github.workspace }}/mvp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r mvp/api/requirements.txt
+          pip install -r mvp/worker/requirements.txt
+
+      - name: Run unit tests
+        working-directory: mvp
+        run: python -m unittest tests.test_auth_jwt tests.test_payments tests.test_scan_engine tests.test_integration tests.test_api_routes
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build images
+        run: docker compose build api worker nginx
+
+  integration-test:
+    runs-on: ubuntu-latest
+    env:
+      API_KEY_SECRET: affiliate_mvp_salt_2024
+      JWT_SECRET_KEY: affiliate_mvp_jwt_secret_change_me
+      API_BASE_URL: http://localhost:8000
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose test workflow
+        run: docker compose -f docker-compose.yml -f docker-compose.test.yml config
+
+      - name: Run dev/test workflow
+        run: docker compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from tests --build tests
+
+      - name: Collect logs on failure
+        if: failure()
+        run: docker compose -f docker-compose.yml -f docker-compose.test.yml logs --no-color

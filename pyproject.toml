@@ -1,0 +1,7 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [".git", "node_modules", "dist", "build"]
+
+[tool.ruff.format]
+quote-style = "preserve"

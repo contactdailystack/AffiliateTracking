@@ -1,0 +1,232 @@
+# Role
+
+คุณคือ Senior SaaS Product Strategist, Startup Founder, Product Manager, Solution Architect และ Growth Consultant ที่มีประสบการณ์สร้าง B2B SaaS ระดับโลก
+
+ผมต้องการให้คุณช่วยพัฒนาไอเดีย Digital Product ต่อจากข้อมูลด้านล่าง โดยคิดเหมือน Founder ที่ต้องสร้างธุรกิจจริง สามารถหาลูกค้าได้จริง สร้างรายได้จริง และ Scale ได้ในระดับ Global
+
+---
+
+# Product Idea
+
+## Affiliate Link Integrity & Health Checker
+
+### Problem
+
+Affiliate Marketer, Blogger, Content Creator และ SEO Specialist มักมี Affiliate Links กระจายอยู่บนหลายแพลตฟอร์ม เช่น
+
+* Website
+* WordPress
+* Notion
+* GitHub Pages
+* Medium
+* YouTube Description
+* Facebook
+* LINE OA
+* Linktree
+* Landing Pages
+
+เมื่อเวลาผ่านไป ลิงก์เหล่านี้อาจเกิดปัญหา เช่น
+
+* 404 Not Found
+* Redirect Error
+* Infinite Redirect Loop
+* Expired Campaign
+* Merchant Program Closed
+* Product Removed
+* Tracking Parameter Lost
+* Domain Expired
+* SSL Certificate Expired
+* Affiliate Tracking Broken
+
+ปัญหาคือเจ้าของลิงก์ส่วนใหญ่มักไม่รู้ว่าลิงก์มีปัญหา จนกว่าจะพบว่ายอด Commission ลดลงหรือหายไป ซึ่งอาจทำให้สูญเสียรายได้เป็นจำนวนมาก
+
+---
+
+# Vision
+
+เราไม่ได้สร้าง Link Checker
+
+เราไม่ได้สร้าง Website Monitoring Tool
+
+เราไม่ได้สร้าง SEO Tool
+
+เรากำลังสร้าง
+
+"Revenue Protection Platform for Affiliate Marketers"
+
+หรือ
+
+"UptimeRobot for Affiliate Revenue"
+
+เป้าหมายคือช่วยป้องกันการสูญเสียรายได้จากลิงก์ Affiliate ที่เสียหรือทำงานผิดปกติ
+
+---
+
+# สิ่งที่ผมต้องการให้คุณทำ
+
+กรุณาทำ Deep Research และวิเคราะห์ไอเดียนี้ในระดับ Founder, Product Manager และ Investor
+
+โดยจัดทำรายงานอย่างละเอียดครอบคลุมหัวข้อดังต่อไปนี้
+
+## Phase 1 — Market Validation
+
+* วิเคราะห์ Pain Point ของตลาด
+* กลุ่มลูกค้าเป้าหมาย
+* Customer Persona
+* TAM
+* SAM
+* SOM
+* Market Opportunity
+* Market Trend
+* Search Demand
+* ความเร่งด่วนของปัญหา
+* ลูกค้ายอมจ่ายเงินจริงหรือไม่
+* ระดับการแข่งขันในตลาด
+
+---
+
+## Phase 2 — Competitor Research
+
+วิเคราะห์คู่แข่งโดยละเอียด เช่น
+
+* UptimeRobot
+* Better Stack
+* Ahrefs
+* Screaming Frog
+* Broken Link Checker
+* Semrush
+* ClickMagick
+* Pretty Links
+* ThirstyAffiliates
+
+เปรียบเทียบ
+
+* จุดแข็ง
+* จุดอ่อน
+* Pricing
+* Feature Gap
+* Market Positioning
+
+พร้อมสรุปว่ามีช่องว่างทางการตลาด (Market Gap) ตรงไหนที่เราสามารถเข้าไปแข่งขันได้
+
+---
+
+## Phase 3 — Product Strategy
+
+ออกแบบ Product Strategy อย่างละเอียด
+
+* Core Value Proposition
+* Unique Selling Proposition
+* Competitive Moat
+* Product Positioning
+* Pricing Strategy
+* Go-To-Market Strategy
+* Customer Acquisition Strategy
+* Retention Strategy
+
+---
+
+## Phase 4 — MVP Planning
+
+ออกแบบ MVP ที่เล็กที่สุดแต่ขายได้จริง
+
+ระบุ
+
+* Feature List
+* User Flow
+* Functional Requirements
+* Non-Functional Requirements
+* Business Logic
+* System Workflow
+* API Requirements
+
+จัดลำดับ
+
+* Must Have
+* Should Have
+* Nice To Have
+
+---
+
+## Phase 5 — Technical Architecture
+
+ออกแบบสถาปัตยกรรมระบบ
+
+* Frontend
+* Backend
+* Database
+* Scheduler
+* Queue
+* Monitoring
+* Notification System
+* Authentication
+* Multi-Tenant Architecture
+
+พร้อมอธิบายเหตุผลในการเลือกเทคโนโลยี
+
+โดยให้เน้น
+
+* Cost Efficiency
+* Fast MVP
+* Scalability
+* Security
+
+---
+
+## Phase 6 — Monetization
+
+ออกแบบโมเดลรายได้
+
+* Free
+* Starter
+* Pro
+* Agency
+* Enterprise
+
+พร้อมคำนวณ Unit Economics เบื้องต้น
+
+* CAC
+* LTV
+* Gross Margin
+* Payback Period
+
+---
+
+## Phase 7 — Risk Analysis
+
+วิเคราะห์
+
+* Technical Risk
+* Market Risk
+* Legal Risk
+* Compliance Risk
+* Operational Risk
+
+พร้อมแนวทางลดความเสี่ยง
+
+---
+
+## Phase 8 — Founder Recommendation
+
+สรุปในฐานะ Founder
+
+* ควรทำหรือไม่
+* ระดับโอกาสสำเร็จ
+* จุดที่ต้องระวัง
+* Roadmap 12 เดือน
+* Roadmap 24 เดือน
+* Roadmap 36 เดือน
+
+---
+
+# Output Requirements
+
+* ตอบในรูปแบบ Professional Product Strategy Document
+* ระดับความละเอียดเทียบเท่าเอกสารสำหรับ Investor หรือ Startup Board Meeting
+* ใช้ข้อมูลเชิงวิเคราะห์ ไม่ใช่ความคิดเห็นทั่วไป
+* หากมีสมมติฐาน ให้ระบุอย่างชัดเจน
+* ให้คะแนนความน่าสนใจของธุรกิจในแต่ละมิติ
+* สรุป Executive Summary ในตอนต้น
+* สรุป Final Recommendation ในตอนท้าย
+
+เป้าหมายของรายงานนี้คือการตัดสินใจว่า Product นี้ควรถูกสร้างเป็น SaaS Business จริงหรือไม่ และหากสร้าง ควรเริ่มต้นอย่างไรให้มีโอกาสประสบความสำเร็จสูงที่สุด

@@ -1,0 +1,49 @@
+services:
+  tests:
+    build:
+      context: .
+      dockerfile: mvp/api/Dockerfile
+    command: python -m unittest discover -s /app/mvp/tests -p "test_*.py"
+    environment:
+      APP_NAME: Affiliate Tracking Integrity Monitoring
+      APP_ENV: test
+      APP_VERSION: test
+      LOG_LEVEL: INFO
+      AUTH_MODE: local
+      API_BASE_URL: http://api:8000
+      DATABASE_URL: postgresql+psycopg://mvp:mvp@postgres:5432/mvp
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      GUNICORN_WORKERS: 1
+      GUNICORN_TIMEOUT: 120
+      CELERY_LOG_LEVEL: INFO
+      CELERY_CONCURRENCY: 1
+      API_KEY_SECRET: affiliate_mvp_salt_2024
+      JWT_SECRET_KEY: affiliate_mvp_jwt_secret_change_me
+      STRIPE_PRICING_TABLE_ID: ""
+      STRIPE_PUBLISHABLE_KEY: ""
+      SUPABASE_URL: ""
+      SUPABASE_ANON_KEY: ""
+      SUPABASE_JWT_SECRET: ""
+      SUPABASE_JWT_ISSUER: ""
+      SUPABASE_JWT_AUDIENCE: authenticated
+      SUPABASE_JWKS_URL: ""
+      SCAN_ALLOWED_HOSTS: ""
+      SCAN_DENIED_HOSTS: ""
+      SCAN_ALLOWED_CIDRS: ""
+      SCAN_DENIED_CIDRS: ""
+      SCAN_ALLOW_PROXY_URLS: "false"
+      UPSTASH_REDIS_REST_URL: ""
+      UPSTASH_REDIS_REST_TOKEN: ""
+      PYTHONPATH: "/app/mvp:/app"
+    depends_on:
+      api:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - mvp-network
+    working_dir: /app
