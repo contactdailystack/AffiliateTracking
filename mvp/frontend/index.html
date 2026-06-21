@@ -5,428 +5,862 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Affiliate Tracking Integrity Monitoring</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
     :root {
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --accent: #2563eb;
-      --accent-2: #0f766e;
-      --danger: #dc2626;
-      --ok: #16a34a;
-      --line: #e5e7eb;
+      --bg: #0B0B0C;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #16161a 0%, #0B0B0C 100%);
+      --card: #121214;
+      --card-sec: #18181b;
+      --text: #f4f4f5;
+      --text-sec: #a1a1aa;
+      --muted: #71717a;
+      --accent: #56be89;
+      --accent-glow: rgba(86, 190, 137, 0.15);
+      --accent-2: #19D59E;
+      --danger: #ef4444;
+      --ok: #10b981;
+      --line: #1F1F22;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: var(--font-body);
       background: var(--bg);
+      background-image: var(--bg-gradient);
       color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      letter-spacing: -0.025em;
+      margin-top: 0;
+    }
+
     header {
-      background: linear-gradient(135deg, #0b1220, #111827 55%, #0f172a);
+      background: rgba(10, 10, 11, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: #fff;
-      padding: 1rem 1.5rem;
+      padding: 1.25rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
     }
-    header h1 { margin: 0; font-size: 1.05rem; letter-spacing: .2px; }
-    header .nav { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
-    header .nav a { color: #dbeafe; text-decoration: none; font-size: .875rem; }
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
-    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    header h1 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; color: #fff; display: flex; align-items: center; gap: 0.5rem; }
+    header h1::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 2px;
+      box-shadow: 0 0 8px var(--accent);
+    }
+    header .nav { display: flex; gap: 1.5rem; align-items: center; }
+    header .nav a { color: var(--text-sec); text-decoration: none; font-size: .875rem; font-weight: 500; transition: all 0.2s ease; }
+    header .nav a:hover { color: var(--accent); }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 1rem;
-      padding: 1rem;
-      box-shadow: 0 1px 2px rgba(15,23,42,.04);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .card h2 { margin: .25rem 0 .75rem; font-size: 1rem; }
+    .card:hover {
+      border-color: rgba(86, 190, 137, 0.25);
+    }
+    .card h2 { margin: 0 0 1rem; font-size: 1.3rem; font-weight: 600; color: #fff; }
     .muted { color: var(--muted); font-size: .875rem; }
-    .badge { display: inline-block; padding: .25rem .5rem; border-radius: .375rem; font-size: .75rem; font-weight: 600; }
-    .badge-open { background: #fee2e2; color: #991b1b; }
-    .badge-resolved { background: #d1fae5; color: #065f46; }
-    .badge-sev-3 { background: #fee2e2; color: #991b1b; }
-    .badge-sev-2 { background: #fef3c7; color: #92400e; }
-    .badge-sev-1 { background: #e0e7ff; color: #3730a3; }
+    
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: .25rem .6rem;
+      border-radius: 6px;
+      font-size: .75rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      font-family: var(--font-mono);
+    }
+    .badge-open { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.25); }
+    .badge-resolved { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.25); }
+    .badge-sev-3 { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.25); }
+    .badge-sev-2 { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.25); }
+    .badge-sev-1 { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.25); }
+
+    /* Tables */
     table { width: 100%; border-collapse: collapse; font-size: .875rem; }
-    th, td { padding: .6rem .5rem; text-align: left; border-bottom: 1px solid var(--line); }
-    th { color: var(--muted); font-weight: 600; }
-    tr:hover td { background: #f8fafc; }
+    th, td { padding: 1rem .75rem; text-align: left; border-bottom: 1px solid var(--line); }
+    th { color: var(--text-sec); font-weight: 600; background: rgba(255,255,255,0.01); }
+    td { color: var(--text-sec); }
+    tr:hover td { background: rgba(255, 255, 255, 0.015); color: #fff; }
+    
+    /* Buttons */
+    button, input, select, textarea, .tab, .nav a {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     button {
       cursor: pointer;
-      border: 0;
-      border-radius: .375rem;
-      padding: .45rem .75rem;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: .6rem 1.2rem;
       font-size: .875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
-    .btn { background: var(--accent); color: #fff; }
-    .btn-ghost { background: #e5e7eb; color: var(--text); }
-    .btn-danger { background: var(--danger); color: #fff; }
-    .actions { display: flex; gap: .5rem; flex-wrap: wrap; margin: .5rem 0; }
-    .form { display: flex; gap: .5rem; flex-wrap: wrap; margin: .5rem 0; align-items: center; }
-    .stack { display: grid; gap: .5rem; }
-    .variant-builder { display: grid; gap: .6rem; margin-top: .75rem; }
+    button:active {
+      transform: scale(0.98);
+    }
+    .btn {
+      background: var(--accent);
+      color: #0B0B0C;
+    }
+    .btn:hover {
+      background: #6cd29a;
+      box-shadow: 0 0 20px rgba(86, 190, 137, 0.35);
+    }
+    .btn:disabled {
+      background: var(--line);
+      color: var(--muted);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--muted);
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .actions { display: flex; gap: .75rem; flex-wrap: wrap; margin: .75rem 0; }
+    .form { display: flex; gap: .75rem; flex-wrap: wrap; margin: .75rem 0; align-items: center; }
+    .stack { display: grid; gap: .75rem; }
+    
+    /* Variant Builder */
+    .variant-builder { display: grid; gap: .75rem; margin-top: .75rem; }
     .variant-row {
       display: grid;
-      gap: .5rem;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      padding: .75rem;
+      gap: .75rem;
+      grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+      padding: 1rem;
       border: 1px solid var(--line);
-      border-radius: .75rem;
-      background: #f8fafc;
+      border-radius: 8px;
+      background: var(--card-sec);
       align-items: center;
     }
-    .variant-row .full { grid-column: 1 / -1; }
+    .variant-row .full { grid-column: 1 / -2; }
     .variant-row .tight { min-width: 0; width: 100%; }
+    
+    /* Form Inputs */
     input, select, textarea {
-      padding: .45rem .5rem;
-      border: 1px solid #d1d5db;
-      border-radius: .375rem;
+      padding: .6rem .8rem;
+      background: var(--card-sec);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 8px;
       font-size: .875rem;
+      outline: none;
+      width: 100%;
     }
-    textarea { width: 100%; min-height: 92px; }
+    input::placeholder, textarea::placeholder {
+      color: var(--muted);
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    textarea { width: 100%; min-height: 100px; resize: vertical; }
+    
+    /* Detail View */
     .detail {
       white-space: pre-wrap;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .8rem;
-      background: #f3f4f6;
-      padding: .75rem;
-      border-radius: .5rem;
+      font-family: var(--font-mono);
+      font-size: .825rem;
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      color: var(--text-sec);
+      padding: 1rem;
+      border-radius: 8px;
       max-height: 320px;
       overflow: auto;
     }
+
+    /* Modals */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.45);
+      background: rgba(0,0,0,.8);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 50;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .modal-overlay.active { display: flex; }
     .modal {
       background: var(--card);
-      border-radius: .75rem;
-      width: min(900px, 92vw);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      width: min(720px, 92vw);
       max-height: 90vh;
       overflow: auto;
-      padding: 1.25rem;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
     }
-    .hidden { display: none; }
-    .tabs { display: flex; gap: .25rem; margin-bottom: .75rem; }
+    .modal h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
+    .hidden { display: none !important; }
+    
+    /* Tabs */
+    .tabs { display: flex; gap: .5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
     .tab {
-      background: #e5e7eb;
-      color: var(--text);
-      padding: .4rem .75rem;
-      border-radius: .375rem;
+      background: transparent;
+      color: var(--text-sec);
+      border: none;
+      padding: .6rem 1.2rem;
+      border-radius: 6px;
       cursor: pointer;
-      border: 0;
       font-size: .875rem;
+      font-weight: 500;
     }
-    .tab.active { background: var(--accent); color: #fff; }
+    .tab:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+    }
+    .tab.active { background: rgba(86, 190, 137, 0.1); color: var(--accent); font-weight: 600; }
+    
+    /* Hero Section */
     .hero {
       background:
-        radial-gradient(circle at top left, rgba(37,99,235,.18), transparent 34%),
-        radial-gradient(circle at top right, rgba(15,118,110,.14), transparent 28%),
-        linear-gradient(180deg, #0b1220 0%, #111827 100%);
+        radial-gradient(circle at 10% 20%, rgba(86,190,137,.12), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(25,213,158,.08), transparent 45%),
+        linear-gradient(180deg, #121214 0%, #0B0B0C 100%);
       color: #fff;
-      border-radius: 1.5rem;
-      padding: 2rem;
-      margin: 1rem 0 1.25rem;
-      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 1.5rem 0 2.5rem;
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 2rem;
+      align-items: center;
     }
-    .hero h2 { font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.05; margin: 0 0 .75rem; max-width: 12ch; }
-    .hero p { margin: 0; max-width: 62ch; color: #cbd5e1; line-height: 1.6; }
-    .hero .actions { margin-top: 1.25rem; }
-    .chip-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 2rem; }
+      .hero-visual { display: none; }
+    }
+    .hero-content h2 { font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; margin: 0 0 1rem; font-weight: 700; letter-spacing: -0.03em; }
+    .hero-content p { margin: 0 0 1.5rem; color: var(--text-sec); line-height: 1.6; font-size: 1.05rem; }
+    .hero .actions { margin-top: 1.5rem; }
+    
+    /* Hero Visualizer */
+    .hero-visual {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.02);
+    }
+    .visual-node {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.8rem;
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 0.8rem;
+    }
+    .visual-node .node-icon { font-size: 1rem; }
+    .visual-node .node-title { font-weight: 600; color: #fff; }
+    .visual-node .node-desc { color: var(--muted); font-family: var(--font-mono); margin-left: auto; }
+    .visual-node.success { border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.02); }
+    .visual-node.danger { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.02); }
+    .visual-arrow {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin: -0.25rem 0;
+    }
+
+    .chip-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
     .chip {
-      background: rgba(255,255,255,.08);
-      color: #e2e8f0;
-      border: 1px solid rgba(255,255,255,.1);
-      padding: .35rem .55rem;
+      background: rgba(86, 190, 137, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(86, 190, 137, 0.15);
+      padding: .35rem .75rem;
       border-radius: 999px;
-      font-size: .8rem;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
-    .pricing { margin: 1rem 0 1.5rem; }
-    .plan-card { position: relative; overflow: hidden; }
-    .plan-card.featured { border-color: #93c5fd; box-shadow: 0 14px 40px rgba(37,99,235,.12); transform: translateY(-2px); }
+    
+    /* Trust Banner */
+    .trust-banner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.5rem;
+      background: var(--card);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .trust-banner { grid-template-columns: 1fr; }
+    }
+    .metric-item { display: flex; flex-direction: column; gap: 0.25rem; }
+    .metric-num { font-size: 2rem; font-weight: 800; color: var(--accent); font-family: var(--font-heading); }
+    .metric-label { font-size: 0.85rem; color: var(--text-sec); font-weight: 500; }
+
+    /* Pricing Section */
+    .pricing { margin: 2rem 0; }
+    .plan-card { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .plan-card.featured { border-color: var(--accent); box-shadow: 0 10px 30px rgba(86,190,137,.08); transform: translateY(-4px); }
+    .plan-card.featured::before {
+      content: 'POPULAR';
+      position: absolute;
+      top: 12px;
+      right: -32px;
+      background: var(--accent);
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 4px 32px;
+      transform: rotate(45deg);
+      letter-spacing: 0.05em;
+    }
     .plan-badge {
       display: inline-flex;
       align-items: center;
-      gap: .35rem;
-      font-size: .72rem;
+      width: fit-content;
+      font-size: .7rem;
       text-transform: uppercase;
       letter-spacing: .08em;
       font-weight: 700;
-      color: #1d4ed8;
-      background: #dbeafe;
-      padding: .3rem .55rem;
-      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(86, 190, 137, 0.1);
+      border: 1px solid rgba(86, 190, 137, 0.2);
+      padding: .25rem .5rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
     }
-    .price { font-size: 2.2rem; font-weight: 800; margin: .2rem 0; }
-    .price span { font-size: .9rem; font-weight: 600; color: var(--muted); }
-    .feature-list { margin: 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
-    .feature-list li { display: flex; gap: .55rem; align-items: flex-start; font-size: .92rem; }
-    .dot { width: .65rem; height: .65rem; border-radius: 999px; margin-top: .35rem; background: var(--ok); flex: 0 0 auto; }
-    stripe-pricing-table { display: block; width: 100%; }
+    .price { font-size: 2.5rem; font-weight: 800; margin: .5rem 0; font-family: var(--font-heading); color: #fff; }
+    .price span { font-size: .95rem; font-weight: 500; color: var(--muted); }
+    .feature-list { margin: 1.25rem 0; padding: 0; list-style: none; display: grid; gap: .75rem; }
+    .feature-list li { display: flex; gap: .75rem; align-items: center; font-size: .9rem; color: var(--text-sec); }
+    .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); flex-shrink: 0; box-shadow: 0 0 6px var(--accent); }
+    stripe-pricing-table { display: block; width: 100%; margin-top: 1rem; }
+    
     .section-title {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 1rem;
-      margin: 1rem 0 .75rem;
+      margin: 2.5rem 0 1.25rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.75rem;
     }
-    .section-title h3 { margin: 0; font-size: 1.2rem; }
-    .section-title .muted { max-width: 56ch; }
-    .status-pill { color: #cbd5e1; font-size: .875rem; }
+    .section-title h3 { margin: 0 0 0.25rem; font-size: 1.5rem; font-weight: 700; color: #fff; }
+    .section-title .muted { font-size: 0.9rem; }
+    
+    .status-pill {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      color: var(--accent);
+      font-size: .8rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      width: fit-content;
+    }
+    
+    .return-banner {
+      margin: 1.5rem 0;
+      border-left: 4px solid var(--accent);
+      background: rgba(86, 190, 137, 0.03);
+    }
+    
+    /* Features Grid (6 Columns) */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .feature-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+    }
+    .feature-item:hover {
+      border-color: rgba(86, 190, 137, 0.2);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    .feature-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .feature-desc {
+      font-size: 0.875rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    /* Details collapse tag for dev settings */
+    details.dev-settings {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      margin-top: 1rem;
+    }
+    details.dev-settings summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-sec);
+      outline: none;
+      user-select: none;
+    }
+    details.dev-settings .stack {
+      margin-top: 0.75rem;
+    }
+
+    /* Toast system */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 9999;
+    }
+    .toast {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 280px;
+      max-width: 400px;
+      animation: toast-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border-left: 4px solid var(--accent);
+    }
+    .toast.toast-error {
+      border-left-color: var(--danger);
+    }
+    @keyframes toast-in {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    /* Loading skeletons */
+    .skeleton-loader {
+      background: linear-gradient(90deg, var(--card-sec) 25%, var(--line) 50%, var(--card-sec) 75%);
+      background-size: 200% 100%;
+      animation: loading-skeleton 1.5s infinite;
+      height: 20px;
+      border-radius: 4px;
+      width: 100%;
+    }
+    @keyframes loading-skeleton {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Affiliate Tracking Integrity Monitoring</h1>
+    <h1>Affiliate Tracking Integrity</h1>
     <div class="nav">
       <a href="#pricing">Pricing</a>
       <a href="#app">Dashboard</a>
-      <a href="#support">Support</a>
+      <a href="#support">Features</a>
     </div>
   </header>
 
   <div class="wrap">
+    <section id="paymentReturn" class="card return-banner hidden"></section>
+
     <section class="hero">
-      <div class="chip-row">
-        <span class="chip">Revenue protection</span>
-        <span class="chip">Redirect tracing</span>
-        <span class="chip">Quota aware</span>
+      <div class="hero-content">
+        <div class="chip-row">
+          <span class="chip">Revenue Protection</span>
+          <span class="chip">Redirect Tracing</span>
+          <span class="chip">Quota Aware</span>
+        </div>
+        <h2>Protect your affiliate commission. Automatically, 24/7.</h2>
+        <p>
+          Stop losing commission to broken redirects, missing tracking parameters, and merchant errors. Automatically scan, trace, and audit your affiliate links 24/7.
+        </p>
+        <div class="actions">
+          <button class="btn" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Start protecting your links for free</button>
+          <button class="btn-ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Pricing Plans</button>
+        </div>
+        <div class="muted" style="margin-top: 0.75rem; font-size: 0.8rem;">No credit card required • 2-minute setup</div>
       </div>
-      <h2>Protect affiliate revenue before broken links leak margin.</h2>
-      <p>
-        Monitor redirects, tracking parameters, and HTTP failures in one workflow.
-        Keep usage visible, alerts actionable, and operations production ready.
-      </p>
-      <div class="actions">
-        <button class="btn" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Open Dashboard</button>
-        <button class="btn-ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Plans</button>
+      <div class="hero-visual">
+        <div class="visual-node success">
+          <span class="node-icon">🔗</span>
+          <span class="node-title">Affiliate Link Click</span>
+          <span class="node-desc">Source URL</span>
+        </div>
+        <div class="visual-arrow">▼</div>
+        <div class="visual-node">
+          <span class="node-icon">🔄</span>
+          <span class="node-title">Redirect Tracing</span>
+          <span class="node-desc">302 Trace</span>
+        </div>
+        <div class="visual-arrow">▼</div>
+        <div class="visual-node success">
+          <span class="node-icon">🟢</span>
+          <span class="node-title">Affiliate ID Check</span>
+          <span class="node-desc">Valid tag ✓</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-banner">
+      <div class="metric-item">
+        <span class="metric-num">1M+</span>
+        <span class="metric-label">Links Scanned</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">10K+</span>
+        <span class="metric-label">Issues Detected</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">$50,000+</span>
+        <span class="metric-label">Revenue Protected</span>
       </div>
     </section>
 
     <section id="pricing" class="pricing">
       <div class="section-title">
         <div>
-          <h3>Pricing</h3>
-          <div class="muted">Stripe Pricing Table powers paid plan selection. Free is always available.</div>
+          <h3>Simple, Value-Driven Pricing</h3>
+          <div class="muted">Start monitoring for free and upgrade as your campaign volume expands.</div>
         </div>
       </div>
       <div class="grid">
         <div class="card plan-card">
-          <span class="plan-badge">Free</span>
-          <div class="price">$0 <span>/ month</span></div>
-          <div class="muted">For testing and low-volume monitoring.</div>
-          <ul class="feature-list" style="margin-top:.9rem">
-            <li><span class="dot"></span><span>Up to 100 links</span></li>
-            <li><span class="dot"></span><span>1 project</span></li>
-            <li><span class="dot"></span><span>Daily scans</span></li>
-            <li><span class="dot"></span><span>Email alerts</span></li>
-          </ul>
+          <div>
+            <span class="plan-badge">Free</span>
+            <div class="price">$0 <span>/ month</span></div>
+            <div class="muted">For testing and low-volume tracking audits.</div>
+            <ul class="feature-list" style="margin-top:1.25rem">
+              <li><span class="dot"></span><span>Up to 100 links</span></li>
+              <li><span class="dot"></span><span>1 active project</span></li>
+              <li><span class="dot"></span><span>Daily automated scans</span></li>
+              <li><span class="dot"></span><span>Basic email alerts</span></li>
+            </ul>
+          </div>
         </div>
         <div class="card plan-card featured">
-          <span class="plan-badge">Pro</span>
-          <div class="price">$10 <span>/ month</span></div>
-          <div class="muted">For growing teams that need faster scans and more control.</div>
-          <ul class="feature-list" style="margin-top:.9rem">
-            <li><span class="dot"></span><span>Up to 1,000 links</span></li>
-            <li><span class="dot"></span><span>15-minute scan floor</span></li>
-            <li><span class="dot"></span><span>Issue export and resolve flow</span></li>
-            <li><span class="dot"></span><span>Discord + email alerts</span></li>
-          </ul>
+          <div>
+            <span class="plan-badge">Pro</span>
+            <div class="price">$10 <span>/ month</span></div>
+            <div class="muted">For professional marketers needing high-frequency scans.</div>
+            <ul class="feature-list" style="margin-top:1.25rem">
+              <li><span class="dot"></span><span>Up to 1,000 links</span></li>
+              <li><span class="dot"></span><span>15-minute scan intervals</span></li>
+              <li><span class="dot"></span><span>Export logs & Resolve flows</span></li>
+              <li><span class="dot"></span><span>Discord & Telegram integration</span></li>
+            </ul>
+          </div>
         </div>
         <div class="card plan-card">
-          <span class="plan-badge">Pro+</span>
-          <div class="price">$20 <span>/ month</span></div>
-          <div class="muted">For high volume operations and custom rollout support.</div>
-          <ul class="feature-list" style="margin-top:.9rem">
-            <li><span class="dot"></span><span>Custom limits and scans</span></li>
-            <li><span class="dot"></span><span>Deployment and integration support</span></li>
-            <li><span class="dot"></span><span>Security and compliance controls</span></li>
-            <li><span class="dot"></span><span>Priority support</span></li>
+          <div>
+            <span class="plan-badge">Pro+</span>
+            <div class="price">$20 <span>/ month</span></div>
+            <div class="muted">For large affiliate networks and custom scale.</div>
+            <ul class="feature-list" style="margin-top:1.25rem">
+              <li><span class="dot"></span><span>Custom link limits & rates</span></li>
+              <li><span class="dot"></span><span>Multi-geo simulated scans</span></li>
+              <li><span class="dot"></span><span>Developer API & Webhooks</span></li>
+              <li><span class="dot"></span><span>Priority developer support</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1.5rem">
+        <h2>Upgrade Plan</h2>
+        <div class="muted">Select a plan tier below to checkout via Stripe secure billing portal.</div>
+        <div id="pricingTableMount" style="margin-top:1.25rem"></div>
+      </div>
+    </section>
+
+    <div id="app" style="scroll-margin-top: 5rem;">
+      <!-- Auth Wall Container for Unauthenticated Users -->
+      <div id="unauthContainer" class="auth-wall-container">
+        <div class="auth-wall-banner">
+          <h3>Unlock Dashboard access</h3>
+          <p>Sign in to configure your tracking projects, setup redirection rules, and access real-time integrity scans.</p>
+          <ul style="margin-top: 1.25rem; padding-left: 1.25rem; display: grid; gap: 0.5rem;">
+            <li><strong>Continuous Monitoring</strong>: Alerts you immediately when affiliate tags drop.</li>
+            <li><strong>Detailed Reports</strong>: Diagnostic evidence paths and redirect responses.</li>
+            <li><strong>Stripe Powered Billing</strong>: Free tier forever, upgrades on demand.</li>
           </ul>
         </div>
+        <div class="card" id="loginCard">
+          <h2>Account Portal</h2>
+          <div id="localAuthControls" class="stack">
+            <input id="email" type="email" placeholder="email@domain.com">
+            <input id="password" type="password" placeholder="password">
+            <input id="fullName" type="text" placeholder="full name (registration only)">
+            <div class="actions" style="margin-top:0.5rem">
+              <button class="btn" onclick="login()" style="flex:1">Login</button>
+              <button class="btn-ghost" onclick="register()" style="flex:1">Register</button>
+            </div>
+          </div>
+          <div class="muted" id="authNotice" style="margin-top:.75rem"></div>
+        </div>
       </div>
-      <div class="card" style="margin-top:1rem">
-        <h2>Subscribe</h2>
-        <div class="muted">Choose a plan from the live Stripe pricing table below.</div>
-        <div id="pricingTableMount" style="margin-top:1rem"></div>
+
+      <!-- Authenticated Dashboard Area -->
+      <div id="authDashboard" class="hidden">
+        <div class="grid" style="margin-bottom:1.5rem">
+          <div class="card">
+            <h2>Tenant Profile</h2>
+            <div class="stack" style="gap:0.5rem">
+              <div><span class="muted">Tenant Profile:</span> <strong id="userStatus">Not signed in</strong></div>
+            </div>
+            <div class="actions" style="margin-top:1.25rem">
+              <button class="btn-danger" onclick="logout()">Logout Session</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Usage Statistics</h2>
+            <div id="usageBox" class="muted">No data yet</div>
+            <div id="billingBox" class="muted" style="margin-top:.75rem">Billing not checked yet</div>
+          </div>
+        </div>
+
+        <div class="section-title" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h3>Control Plane</h3>
+            <div class="muted">Manage projects, define merchant rules, and scan live links from one place.</div>
+          </div>
+          <div class="status-pill" id="status">Loading...</div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('projects')">Projects</button>
+          <button class="tab" onclick="switchTab('issues')">Issues Log</button>
+        </div>
+
+        <div id="tab-projects">
+          <div class="card">
+            <h2>Projects Registry</h2>
+            <div class="muted" style="margin-bottom: 1rem;">Select a project to view its issues or start a scan.</div>
+            <div class="form">
+              <button class="btn" onclick="loadProjects()">Reload Projects</button>
+            </div>
+            <table id="projectsTable" style="margin-top:1rem">
+              <thead><tr><th>Name</th><th>Scan Freq (s)</th><th>Created</th><th>Actions</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <div class="grid" style="margin-top:1.5rem">
+            <div class="card">
+              <h2>Create Project</h2>
+              <div class="form">
+                <input id="projectName" type="text" placeholder="project name">
+                <input id="projectScanFreq" type="number" min="60" step="60" value="3600" placeholder="scan frequency (seconds)">
+              </div>
+              <div class="actions">
+                <button class="btn" onclick="createProject()">Create Project</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>Merchant Rules</h2>
+              <div class="form">
+                <select id="ruleProjectSelect"></select>
+                <input id="merchantName" type="text" placeholder="merchant name">
+              </div>
+              <div class="muted" style="margin-bottom: 0.5rem;">Required query keys as JSON, e.g. [{"key":"tag","required":true}]</div>
+              <textarea id="requiredKeys" placeholder='[{"key":"tag","required":true}]'></textarea>
+              <div class="actions">
+                <button class="btn" onclick="saveMerchantRule()">Save Rule</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>Import Links</h2>
+              <div class="form">
+                <select id="importProjectSelect"></select>
+                <input id="importMerchantName" type="text" placeholder="merchant name">
+              </div>
+              <div class="muted" style="margin-bottom: 0.5rem;">One URL per line. Optional label after |.</div>
+              <textarea id="linksInput" placeholder="https://example.com/a | YouTube description"></textarea>
+              <div class="actions">
+                <button class="btn" onclick="importLinks()">Import Links</button>
+              </div>
+            </div>
+
+            <div class="card" style="grid-column: 1 / -1;">
+              <h2>Scan Variants Builder</h2>
+              <div class="muted" style="margin-bottom: 0.75rem;">Build the scan matrix for desktop, mobile, and geo checks before starting a run. Proxy checks are on hold.</div>
+              <div class="actions" style="margin-bottom: 1.25rem;">
+                <button class="btn-ghost" onclick="addVariantRow()">Add Variant</button>
+                <button class="btn-ghost" onclick="addPresetVariant('desktop')">Desktop Preset</button>
+                <button class="btn-ghost" onclick="addPresetVariant('mobile')">Mobile Preset</button>
+                <button class="btn-ghost" onclick="addPresetVariant('geo')">Geo Preset</button>
+                <button class="btn-ghost" onclick="void 0" disabled title="Proxy checks are on hold">Proxy On Hold</button>
+                <button class="btn-danger" onclick="resetVariantRows()">Reset Variants</button>
+              </div>
+              <div id="variantRows" class="variant-builder"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-issues" class="hidden">
+          <div class="card">
+            <h2>Issues Log</h2>
+            <div class="form" style="margin-bottom: 1rem;">
+              <label class="muted">Project:</label>
+              <select id="projectSelect" style="max-width:200px;"><option value="">- select project -</option></select>
+              <label class="muted">Status:</label>
+              <select id="statusFilter" style="max-width:150px;">
+                <option value="">All</option>
+                <option value="open" selected>Open</option>
+                <option value="resolved">Resolved</option>
+              </select>
+              <button class="btn" onclick="loadIssues()">Refresh Logs</button>
+              <button class="btn-ghost" onclick="exportCsv()">Export CSV</button>
+            </div>
+            <table id="issuesTable">
+              <thead>
+                <tr>
+                  <th>Type</th><th>Severity</th><th>Status</th><th>First Seen</th><th>Last Seen</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="support" class="card" style="margin:2.5rem 0 1rem;">
+      <div class="section-title" style="margin:0 0 1rem; border-bottom: none; padding-bottom: 0">
+        <h3>Comprehensive Link Protection</h3>
+        <div class="muted">Everything you need to secure your affiliate revenue streams.</div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">⚡</span>
+          <div class="feature-title">Real-Time Scan Speeds</div>
+          <div class="feature-desc">Low-latency worker execution checks redirect paths in seconds.</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🔍</span>
+          <div class="feature-title">Affiliate ID Auditor</div>
+          <div class="feature-desc">Inspects redirect queries for missing or overwritten merchant tags.</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🔔</span>
+          <div class="feature-title">Instant Alerts</div>
+          <div class="feature-desc">Receive real-time notifications via Discord, Telegram, and email.</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📱</span>
+          <div class="feature-title">Device & Geo checks</div>
+          <div class="feature-desc">Trace redirects simulated from mobile, desktop, and specific country locations.</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🔌</span>
+          <div class="feature-title">WordPress Plugin</div>
+          <div class="feature-desc">Check links on your site backend directly using our lightweight plugin.</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">⚙️</span>
+          <div class="feature-title">Developer API</div>
+          <div class="feature-desc">Integrate monitoring alerts directly into your internal tooling.</div>
+        </div>
       </div>
     </section>
 
-    <div class="section-title">
-      <div>
-        <h3>Control Plane</h3>
-        <div class="muted">Login, manage projects, define merchant rules, and scan live links from one place.</div>
-      </div>
-      <div class="status-pill" id="status">Loading...</div>
-    </div>
-
-    <div id="app">
-      <div class="grid" style="margin-bottom:1rem">
-        <div class="card">
-          <h2>Account</h2>
-          <div class="stack">
-            <input id="apiBaseUrl" type="url" placeholder="API base URL" style="min-width:220px">
-            <input id="supabaseUrl" type="url" placeholder="Supabase URL (optional)" style="min-width:220px">
-            <input id="supabaseAnonKey" type="password" placeholder="Supabase anon key (optional)" style="min-width:220px">
-          </div>
-          <div id="localAuthControls">
-            <div class="form" style="margin-top:.75rem">
-              <input id="email" type="email" placeholder="email@domain.com" style="min-width:220px">
-              <input id="password" type="password" placeholder="password" style="min-width:180px">
-              <input id="fullName" type="text" placeholder="full name (register)" style="min-width:180px">
-            </div>
-            <div class="actions">
-              <button class="btn" onclick="login()">Login</button>
-              <button class="btn-ghost" onclick="register()">Register</button>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="btn-ghost" onclick="logout()">Logout</button>
-            <button class="btn-ghost" onclick="saveConnectionSettings()">Save Connection</button>
-          </div>
-          <div class="muted" id="authNotice" style="margin-top:.5rem"></div>
-          <div class="muted" id="userStatus">Not signed in</div>
+    <footer style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line);">
+      <details class="dev-settings" style="max-width: 500px; margin: 0 auto;">
+        <summary>Advanced Developer Settings ⚙️</summary>
+        <div class="stack" style="margin-top: 0.75rem;">
+          <input id="apiBaseUrl" type="url" placeholder="API base URL">
+          <input id="supabaseUrl" type="url" placeholder="Supabase URL (optional)">
+          <input id="supabaseAnonKey" type="password" placeholder="Supabase anon key (optional)">
+          <button class="btn-ghost" onclick="saveConnectionSettings()" style="width: 100%;">Save Connection Settings</button>
         </div>
-      <div class="card">
-        <h2>Usage</h2>
-        <div id="usageBox" class="muted">No data yet</div>
-        <div id="billingBox" class="muted" style="margin-top:.75rem">Billing not checked yet</div>
-      </div>
-      </div>
-    </div>
-
-    <section id="support" class="card" style="margin:0 0 1rem">
-      <div class="section-title" style="margin:0 0 .5rem">
-        <h3>Why this works</h3>
-      </div>
-      <div class="grid">
-        <div>
-          <strong>Fast signal</strong>
-          <div class="muted">See broken redirects, missing tags, and HTTP errors with evidence attached.</div>
-        </div>
-        <div>
-          <strong>Clear limits</strong>
-          <div class="muted">Plan usage is visible in the dashboard so upgrades feel natural.</div>
-        </div>
-        <div>
-          <strong>Operationally ready</strong>
-          <div class="muted">Health checks, metrics, and compose friendly tests support deployment.</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('projects')">Projects</button>
-      <button class="tab" onclick="switchTab('issues')">Issues</button>
-    </div>
-
-    <div id="tab-projects">
-      <div class="card">
-        <h2>Projects</h2>
-        <div class="muted">Select a project to view its issues or start a scan.</div>
-        <div class="form" style="margin-top:.75rem">
-          <button class="btn" onclick="loadProjects()">Load Projects</button>
-        </div>
-        <table id="projectsTable" style="margin-top:.75rem">
-          <thead><tr><th>Name</th><th>Scan Freq (s)</th><th>Created</th><th>Actions</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <div class="grid" style="margin-top:1rem">
-        <div class="card">
-          <h2>Create Project</h2>
-          <div class="form">
-            <input id="projectName" type="text" placeholder="project name" style="min-width:220px">
-            <input id="projectScanFreq" type="number" min="60" step="60" value="3600" style="min-width:160px">
-          </div>
-          <div class="actions">
-            <button class="btn" onclick="createProject()">Create</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Merchant Rules</h2>
-          <div class="form">
-            <select id="ruleProjectSelect"></select>
-            <input id="merchantName" type="text" placeholder="merchant name" style="min-width:180px">
-          </div>
-          <div class="muted">Required keys as JSON, e.g. [{"key":"tag","required":true}]</div>
-          <textarea id="requiredKeys" placeholder='[{"key":"tag","required":true}]'></textarea>
-          <div class="actions">
-            <button class="btn" onclick="saveMerchantRule()">Save Rule</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Import Links</h2>
-          <div class="form">
-            <select id="importProjectSelect"></select>
-            <input id="importMerchantName" type="text" placeholder="merchant name" style="min-width:180px">
-          </div>
-          <div class="muted">One URL per line. Optional label after |.</div>
-          <textarea id="linksInput" placeholder="https://example.com/a | YouTube description"></textarea>
-          <div class="actions">
-            <button class="btn" onclick="importLinks()">Import</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Scan Variants</h2>
-          <div class="muted">Build the scan matrix for desktop, mobile, and geo checks before starting a run. Proxy checks are on hold.</div>
-          <div class="actions">
-            <button class="btn-ghost" onclick="addVariantRow()">Add Variant</button>
-            <button class="btn-ghost" onclick="addPresetVariant('desktop')">Desktop</button>
-            <button class="btn-ghost" onclick="addPresetVariant('mobile')">Mobile</button>
-            <button class="btn-ghost" onclick="addPresetVariant('geo')">Geo</button>
-            <button class="btn-ghost" onclick="addPresetVariant('proxy')" disabled title="Proxy checks are on hold">Proxy On Hold</button>
-            <button class="btn-danger" onclick="resetVariantRows()">Reset</button>
-          </div>
-          <div id="variantRows" class="variant-builder"></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-issues" class="hidden">
-      <div class="card">
-        <h2>Issues</h2>
-        <div class="form">
-          <label class="muted">Project:</label>
-          <select id="projectSelect"><option value="">- select project -</option></select>
-          <label class="muted">Status:</label>
-          <select id="statusFilter">
-            <option value="">All</option>
-            <option value="open" selected>Open</option>
-            <option value="resolved">Resolved</option>
-          </select>
-          <button class="btn" onclick="loadIssues()">Refresh</button>
-          <button class="btn-ghost" onclick="exportCsv()">Export CSV</button>
-        </div>
-        <table id="issuesTable" style="margin-top:.75rem">
-          <thead>
-            <tr>
-              <th>Type</th><th>Severity</th><th>Status</th><th>First Seen</th><th>Last Seen</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
+      </details>
+    </footer>
   </div>
 
   <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
@@ -440,7 +874,34 @@
     </div>
   </div>
 
+  <div id="toastContainer" class="toast-container"></div>
+
   <script>
+    function showToast(message, isError = false) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = `toast ${isError ? 'toast-error' : ''}`;
+      toast.innerHTML = `
+        <span style="font-size:1.1rem">${isError ? '🔴' : '🟢'}</span>
+        <div style="flex:1">${escapeHtml(message)}</div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // Capture standard alert messages and route to custom toasts
+    const originalAlert = window.alert;
+    window.alert = function(msg) {
+      const isError = String(msg).toLowerCase().includes('fail') || String(msg).toLowerCase().includes('error') || String(msg).toLowerCase().includes('missing') || String(msg).toLowerCase().includes('first') || String(msg).toLowerCase().includes('cancelled') || String(msg).toLowerCase().includes('not');
+      showToast(msg, isError);
+    };
+
     let currentIssue = null;
     let currentIssues = [];
     let currentProjects = [];
@@ -457,8 +918,57 @@
       else localStorage.removeItem(key);
     }
 
+    function setSessionTokens(session) {
+      if (!session) return;
+      const accessToken = session.access_token || session.accessToken || session?.session?.access_token || session?.session?.accessToken;
+      const refreshToken = session.refresh_token || session?.refresh_token || session?.session?.refresh_token || session?.session?.refreshToken;
+      if (accessToken) localStorage.setItem('access_token', accessToken);
+      if (refreshToken) localStorage.setItem('refresh_token', refreshToken);
+    }
+
+    function clearSessionTokens() {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+    }
+
     function getApiBaseUrl() {
-      return getSetting('api_base_url', 'http://localhost:8000').replace(/\/$/, '');
+      return getSetting('api_base_url', 'https://cilantro-browse-duress.ngrok-free.dev').replace(/\/$/, '');
+    }
+
+    function renderPaymentReturnState() {
+      const host = document.getElementById('paymentReturn');
+      if (!host) return;
+      const path = window.location.pathname.replace(/\/$/, '');
+      const sessionId = new URLSearchParams(window.location.search).get('session_id') || '';
+      if (path === '/payment/success') {
+        host.classList.remove('hidden');
+        host.innerHTML = `
+          <div class="plan-badge" style="margin-bottom:.5rem">Payment Success</div>
+          <h2 style="margin:.25rem 0 .5rem">Subscription is being activated.</h2>
+          <div class="muted">If payment completed successfully, your plan will appear in the dashboard after Stripe webhook processing.</div>
+          <div class="muted" style="margin-top:.5rem">Session ID: ${escapeHtml(sessionId || 'pending')}</div>
+          <div class="actions" style="margin-top:.9rem">
+            <button class="btn" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Go to Dashboard</button>
+            <button class="btn-ghost" onclick="location.href='/'">Back to Home</button>
+          </div>
+        `;
+        return;
+      }
+      if (path === '/payment/cancel') {
+        host.classList.remove('hidden');
+        host.innerHTML = `
+          <div class="plan-badge" style="margin-bottom:.5rem">Payment Cancelled</div>
+          <h2 style="margin:.25rem 0 .5rem">Checkout was cancelled.</h2>
+          <div class="muted">Your current plan remains unchanged. You can retry from the pricing table below.</div>
+          <div class="actions" style="margin-top:.9rem">
+            <button class="btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Plans</button>
+            <button class="btn-ghost" onclick="location.href='/'">Back to Home</button>
+          </div>
+        `;
+        return;
+      }
+      host.classList.add('hidden');
+      host.innerHTML = '';
     }
 
     function getSupabaseConfig() {
@@ -469,7 +979,7 @@
     }
 
     function syncConnectionSettings() {
-      document.getElementById('apiBaseUrl').value = getSetting('api_base_url', 'http://localhost:8000');
+      document.getElementById('apiBaseUrl').value = getSetting('api_base_url', 'https://cilantro-browse-duress.ngrok-free.dev');
       document.getElementById('supabaseUrl').value = getSetting('supabase_url', '');
       document.getElementById('supabaseAnonKey').value = getSetting('supabase_anon_key', '');
     }
@@ -488,12 +998,41 @@
       return headers;
     }
 
+    async function refreshSupabaseSession() {
+      if (authMode !== 'supabase') return false;
+      const supabase = getSupabaseConfig();
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (!supabase.url || !supabase.anonKey || !refreshToken) return false;
+      const res = await fetch(`${supabase.url}/auth/v1/token?grant_type=refresh_token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': supabase.anonKey,
+        },
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      });
+      if (!res.ok) return false;
+      const data = await res.json();
+      setSessionTokens(data);
+      return Boolean(localStorage.getItem('access_token'));
+    }
+
     async function api(path, opts = {}) {
-      if (!localStorage.getItem('access_token') && !path.startsWith('/auth/')) {
+      const needsAuth = !path.startsWith('/auth/');
+      if (needsAuth && !localStorage.getItem('access_token') && authMode === 'supabase') {
+        await refreshSupabaseSession().catch(() => false);
+      }
+      if (needsAuth && !localStorage.getItem('access_token')) {
         throw new Error('Please login first');
       }
       const url = getApiBaseUrl() + path;
-      const res = await fetch(url, { headers: getHeaders(), ...opts });
+      let res = await fetch(url, { headers: getHeaders(), ...opts });
+      if (needsAuth && res.status === 401 && authMode === 'supabase') {
+        const refreshed = await refreshSupabaseSession().catch(() => false);
+        if (refreshed) {
+          res = await fetch(url, { headers: getHeaders(), ...opts });
+        }
+      }
       if (!res.ok) {
         const text = await res.text().catch(() => res.statusText);
         throw new Error(`${res.status}: ${text}`);
@@ -529,6 +1068,7 @@
         }
         const loginToken = data.access_token || data.session?.access_token || data.session?.accessToken;
         if (!loginToken) throw new Error('No access token returned');
+        setSessionTokens(data);
         localStorage.setItem('access_token', loginToken);
         await refreshSession();
       } catch (e) {
@@ -572,6 +1112,7 @@
           alert('Signup complete, but no session token was returned. Check Supabase email confirmation settings.');
           return;
         }
+        setSessionTokens(data);
         localStorage.setItem('access_token', registerToken);
         await refreshSession();
       } catch (e) {
@@ -580,8 +1121,10 @@
     }
 
     function logout() {
-      localStorage.removeItem('access_token');
+      clearSessionTokens();
       currentUser = null;
+      document.getElementById('authDashboard').classList.add('hidden');
+      document.getElementById('unauthContainer').classList.remove('hidden');
       document.getElementById('userStatus').textContent = 'Not signed in';
       document.getElementById('usageBox').textContent = 'No data yet';
       document.querySelector('#projectsTable tbody').innerHTML = '';
@@ -591,14 +1134,38 @@
 
     async function refreshSession() {
       try {
+        if (!localStorage.getItem('access_token')) {
+          await refreshSupabaseSession().catch(() => false);
+        }
         const me = await api('/auth/me');
         currentUser = me;
+        document.getElementById('authDashboard').classList.remove('hidden');
+        document.getElementById('unauthContainer').classList.add('hidden');
         document.getElementById('userStatus').textContent = `${me.email} | ${me.plan} | ${me.tenant_name || 'tenant'}`;
         await loadUsage();
         await loadProjects();
         syncProjectSelects();
         await loadStripePricingTable();
       } catch (e) {
+        if (authMode === 'supabase' && localStorage.getItem('refresh_token')) {
+          const refreshed = await refreshSupabaseSession().catch(() => false);
+          if (refreshed) {
+            try {
+              const me = await api('/auth/me');
+              currentUser = me;
+              document.getElementById('authDashboard').classList.remove('hidden');
+              document.getElementById('unauthContainer').classList.add('hidden');
+              document.getElementById('userStatus').textContent = `${me.email} | ${me.plan} | ${me.tenant_name || 'tenant'}`;
+              await loadUsage();
+              await loadProjects();
+              syncProjectSelects();
+              await loadStripePricingTable();
+              return;
+            } catch (retryError) {
+              console.warn('Session restore failed after refresh', retryError);
+            }
+          }
+        }
         logout();
       }
     }
@@ -692,25 +1259,37 @@
     }
 
     async function loadProjects() {
-      const data = await api('/projects');
-      const items = data.items || [];
-      currentProjects = items;
       const tbody = document.querySelector('#projectsTable tbody');
-      tbody.innerHTML = items.map(p => {
-        const d = p.created_at ? new Date(p.created_at).toLocaleString() : '-';
-        return `<tr>
-          <td>${escapeHtml(p.name)}</td>
-          <td>${p.scan_frequency_seconds}</td>
-          <td>${d}</td>
-          <td class="actions">
-            <button class="btn" onclick="selectProject('${p.id}')">View Issues</button>
-            <button class="btn-ghost" onclick="startScan('${p.id}')">Scan</button>
-          </td>
-        </tr>`;
-      }).join('') || '<tr><td colspan="4" class="muted">No projects</td></tr>';
-      document.getElementById('status').textContent = `${data.total || items.length} project(s) loaded`;
-      populateProjectSelect();
-      syncProjectSelects();
+      if (tbody) {
+        tbody.innerHTML = `<tr><td colspan="4"><div class="skeleton-loader"></div></td></tr>`;
+      }
+      try {
+        const data = await api('/projects');
+        const items = data.items || [];
+        currentProjects = items;
+        if (tbody) {
+          tbody.innerHTML = items.map(p => {
+            const d = p.created_at ? new Date(p.created_at).toLocaleString() : '-';
+            return `<tr>
+              <td>${escapeHtml(p.name)}</td>
+              <td>${p.scan_frequency_seconds}</td>
+              <td>${d}</td>
+              <td class="actions">
+                <button class="btn" onclick="selectProject('${p.id}')">View Issues</button>
+                <button class="btn-ghost" onclick="startScan('${p.id}')">Scan</button>
+              </td>
+            </tr>`;
+          }).join('') || '<tr><td colspan="4" class="muted">No projects</td></tr>';
+        }
+        document.getElementById('status').textContent = `${data.total || items.length} project(s) loaded`;
+        populateProjectSelect();
+        syncProjectSelects();
+      } catch (e) {
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="4" class="muted" style="color:var(--danger)">Failed to load projects: ${escapeHtml(e.message || e)}</td></tr>`;
+        }
+        throw e;
+      }
     }
 
     async function createProject() {
@@ -799,10 +1378,24 @@
         name,
         device,
         geo_label: '',
-        proxy_url: '',
         user_agent: '',
         accept_language: '',
       };
+    }
+
+    function saveCurrentVariantInputs() {
+      const rows = Array.from(document.querySelectorAll('[data-scan-variant-row]'));
+      rows.forEach(row => {
+        const index = Number(row.dataset.scanVariantRow);
+        if (scanVariantRows[index]) {
+          const get = (field) => row.querySelector(`[data-field="${field}"]`)?.value || '';
+          scanVariantRows[index].name = get('name');
+          scanVariantRows[index].device = get('device');
+          scanVariantRows[index].geo_label = get('geo_label');
+          scanVariantRows[index].user_agent = get('user_agent');
+          scanVariantRows[index].accept_language = get('accept_language');
+        }
+      });
     }
 
     function resetVariantRows() {
@@ -811,11 +1404,11 @@
     }
 
     function addVariantRow(seed = {}) {
+      saveCurrentVariantInputs();
       scanVariantRows.push({
         name: seed.name || `variant-${scanVariantRows.length + 1}`,
         device: seed.device || 'desktop',
         geo_label: seed.geo_label || '',
-        proxy_url: seed.proxy_url || '',
         user_agent: seed.user_agent || '',
         accept_language: seed.accept_language || '',
       });
@@ -823,6 +1416,7 @@
     }
 
     function addPresetVariant(kind) {
+      saveCurrentVariantInputs();
       const presets = {
         desktop: defaultVariant('desktop', 'desktop'),
         mobile: {
@@ -836,7 +1430,9 @@
           accept_language: 'th-TH,th;q=0.9,en;q=0.8',
         },
       };
-      addVariantRow(presets[kind] || defaultVariant(`variant-${scanVariantRows.length + 1}`, 'desktop'));
+      const toAdd = presets[kind] || defaultVariant(`variant-${scanVariantRows.length + 1}`, 'desktop');
+      scanVariantRows.push(toAdd);
+      renderVariantRows();
     }
 
     function renderVariantRows() {
@@ -850,7 +1446,6 @@
             <option value="mobile" ${variant.device === 'mobile' ? 'selected' : ''}>mobile</option>
           </select>
           <input class="tight" data-field="geo_label" value="${escapeAttr(variant.geo_label)}" placeholder="geo label">
-          <input class="tight" data-field="proxy_url" value="${escapeAttr(variant.proxy_url)}" placeholder="proxy url">
           <input class="tight" data-field="user_agent" value="${escapeAttr(variant.user_agent)}" placeholder="user agent">
           <button class="btn-danger" type="button" onclick="removeVariantRow(${index})">Remove</button>
           <input class="full" data-field="accept_language" value="${escapeAttr(variant.accept_language)}" placeholder="accept-language">
@@ -860,6 +1455,7 @@
 
     function removeVariantRow(index) {
       if (scanVariantRows.length === 1) return;
+      saveCurrentVariantInputs();
       scanVariantRows.splice(index, 1);
       renderVariantRows();
     }
@@ -872,7 +1468,6 @@
           name: get('name') || 'default',
           device: get('device') || 'desktop',
           geo_label: get('geo_label') || undefined,
-          proxy_url: get('proxy_url') || undefined,
           user_agent: get('user_agent') || undefined,
           accept_language: get('accept_language') || undefined,
         };
@@ -900,26 +1495,38 @@
       const projectId = document.getElementById('projectSelect').value;
       const status = document.getElementById('statusFilter').value;
       if (!projectId) return alert('Select a project first');
-      const qs = new URLSearchParams({ project_id: projectId, limit: '100', offset: '0' });
-      if (status) qs.set('status', status);
-      const data = await api('/issues?' + qs.toString());
-      currentIssues = data.items || [];
       const tbody = document.querySelector('#issuesTable tbody');
-      tbody.innerHTML = currentIssues.map(i => {
-        const badgeStatus = i.status === 'open' ? 'badge-open' : 'badge-resolved';
-        const badgeSev = `badge-sev-${Math.min(i.severity, 3)}`;
-        const fs = i.first_seen_at ? new Date(i.first_seen_at).toLocaleString() : '-';
-        const ls = i.last_seen_at ? new Date(i.last_seen_at).toLocaleString() : '-';
-        return `<tr>
-          <td>${escapeHtml(i.issue_type)}</td>
-          <td><span class="badge ${badgeSev}">${i.severity}</span></td>
-          <td><span class="badge ${badgeStatus}">${i.status}</span></td>
-          <td>${fs}</td>
-          <td>${ls}</td>
-          <td><button class="btn" onclick="openIssue('${i.id}')">Detail</button></td>
-        </tr>`;
-      }).join('') || '<tr><td colspan="6" class="muted">No issues</td></tr>';
-      document.getElementById('status').textContent = `${data.total} issue(s) loaded`;
+      if (tbody) {
+        tbody.innerHTML = `<tr><td colspan="6"><div class="skeleton-loader"></div></td></tr>`;
+      }
+      try {
+        const qs = new URLSearchParams({ project_id: projectId, limit: '100', offset: '0' });
+        if (status) qs.set('status', status);
+        const data = await api('/issues?' + qs.toString());
+        currentIssues = data.items || [];
+        if (tbody) {
+          tbody.innerHTML = currentIssues.map(i => {
+            const badgeStatus = i.status === 'open' ? 'badge-open' : 'badge-resolved';
+            const badgeSev = `badge-sev-${Math.min(i.severity, 3)}`;
+            const fs = i.first_seen_at ? new Date(i.first_seen_at).toLocaleString() : '-';
+            const ls = i.last_seen_at ? new Date(i.last_seen_at).toLocaleString() : '-';
+            return `<tr>
+              <td>${escapeHtml(i.issue_type)}</td>
+              <td><span class="badge ${badgeSev}">${i.severity}</span></td>
+              <td><span class="badge ${badgeStatus}">${i.status}</span></td>
+              <td>${fs}</td>
+              <td>${ls}</td>
+              <td><button class="btn" onclick="openIssue('${i.id}')">Detail</button></td>
+            </tr>`;
+          }).join('') || '<tr><td colspan="6" class="muted">No issues</td></tr>';
+        }
+        document.getElementById('status').textContent = `${data.total} issue(s) loaded`;
+      } catch (e) {
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="6" class="muted" style="color:var(--danger)">Failed to load issues: ${escapeHtml(e.message || e)}</td></tr>`;
+        }
+        throw e;
+      }
     }
 
     async function openIssue(id) {
@@ -997,6 +1604,7 @@
       return escapeHtml(s).replace(/"/g, '&quot;');
     }
 
+    renderPaymentReturnState();
     syncConnectionSettings();
     loadAuthMode();
     resetVariantRows();
