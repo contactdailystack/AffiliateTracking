@@ -2,7 +2,7 @@
 """End-to-end demo script for the Affiliate MVP.
 
 Prerequisites:
-  - API running at http://localhost:8000
+  - API running at http://api:8000
   - Worker running (Celery)
   - Postgres + Redis up
 
@@ -24,7 +24,7 @@ import time
 import uuid
 import requests
 
-API_BASE = "http://localhost:8000"
+API_BASE = "http://api:8000"
 HEADERS = {"Content-Type": "application/json", "X-API-Key": "11111111-1111-1111-1111-111111111111"}
 
 

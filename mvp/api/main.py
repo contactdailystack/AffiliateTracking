@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, PlainTextResponse
 import os
@@ -22,6 +23,20 @@ app = FastAPI(title=runtime.app_name)
 STARTED_AT = time.time()
 configure_logging(getattr(logging, runtime.log_level.upper(), logging.INFO))
 logger = logging.getLogger(__name__)
+
+cors_sources = (
+    os.getenv("CORS_ALLOW_ORIGINS", "").strip()
+    or os.getenv("FRONTEND_BASE_URL", "").strip()
+    or "https://dailystack-affiliate.vercel.app"
+)
+allow_origins = [origin.strip() for origin in cors_sources.split(",") if origin.strip()]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth_router)
 app.include_router(projects_router)

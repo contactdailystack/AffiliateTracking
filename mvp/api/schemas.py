@@ -55,17 +55,6 @@ class SubscriptionResponse(BaseModel):
 # ------------------------------------------------------------------
 # Tenant / Project schemas
 # ------------------------------------------------------------------
-class CreateTenantRequest(BaseModel):
-    name: str
-
-
-class CreateTenantResponse(BaseModel):
-    id: UUID
-    name: str
-    api_key: str  # raw key shown ONCE at creation
-    plan: str = "free"
-
-
 class CreateProjectRequest(BaseModel):
     tenant_id: UUID
     name: str

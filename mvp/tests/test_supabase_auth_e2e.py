@@ -220,6 +220,12 @@ class SupabaseAuthE2ETests(unittest.TestCase):
     def test_supabase_auth_bootstraps_and_unlocks_dashboard_flow(self):
         headers = {"Authorization": "Bearer supabase-token"}
 
+        auth_config = self.api("GET", "/auth/config")
+        self.assertEqual(auth_config.status_code, 200, auth_config.text)
+        self.assertEqual(auth_config.json()["auth_mode"], "supabase")
+        self.assertFalse(auth_config.json()["local_auth_enabled"])
+        self.assertTrue(auth_config.json()["supabase_mode"])
+
         me = self.api("GET", "/auth/me", headers=headers)
         self.assertEqual(me.status_code, 200, me.text)
         me_data = me.json()
@@ -290,14 +296,14 @@ class SupabaseAuthE2ETests(unittest.TestCase):
 
     def test_local_auth_routes_are_disabled_under_supabase_mode(self):
         login = self.api("POST", "/auth/login", json={"email": "a@example.com", "password": "secret123"})
-        self.assertEqual(login.status_code, 503, login.text)
+        self.assertEqual(login.status_code, 410, login.text)
 
         register = self.api(
             "POST",
             "/auth/register",
             json={"email": "a@example.com", "password": "secret123", "full_name": "A"},
         )
-        self.assertEqual(register.status_code, 503, register.text)
+        self.assertEqual(register.status_code, 410, register.text)
 
 
 if __name__ == "__main__":

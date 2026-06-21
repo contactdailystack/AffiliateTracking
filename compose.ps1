@@ -11,38 +11,38 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $root
 
 function Invoke-Compose {
-  param([string[]]$Args)
-  & docker compose @Args
+  param([string[]]$cmdArgs)
+  & docker compose @cmdArgs
   if ($LASTEXITCODE -ne 0) {
-    throw "docker compose failed: $($Args -join ' ')"
+    throw "docker compose failed: $($cmdArgs -join ' ')"
   }
 }
 
 switch ($Mode) {
   "dev" {
-    $args = @("up")
-    if (-not $NoBuild) { $args += "--build" }
-    Invoke-Compose -Args $args
+    $composeParams = @("up")
+    if (-not $NoBuild) { $composeParams += "--build" }
+    Invoke-Compose -cmdArgs $composeParams
   }
   "test" {
-    $args = @("-f", "docker-compose.yml", "-f", "docker-compose.test.yml", "up", "--abort-on-container-exit", "--exit-code-from", "tests")
-    if (-not $NoBuild) { $args = $args[0..4] + @("--build") + $args[5..($args.Length - 1)] }
-    Invoke-Compose -Args $args
+    $composeParams = @("-f", "docker-compose.yml", "-f", "docker-compose.test.yml", "up", "--abort-on-container-exit", "--exit-code-from", "tests")
+    if (-not $NoBuild) { $composeParams = $composeParams[0..4] + @("--build") + $composeParams[5..($composeParams.Length - 1)] }
+    Invoke-Compose -cmdArgs $composeParams
   }
   "prod" {
     $composeArgs = @("-f", "docker-compose.yml", "-f", "docker-compose.prod.yml")
-    Invoke-Compose -Args ($composeArgs + @("config"))
+    Invoke-Compose -cmdArgs ($composeArgs + @("config"))
     $upArgs = $composeArgs + @("up", "-d")
     if (-not $NoBuild) { $upArgs += "--build" }
-    Invoke-Compose -Args $upArgs
+    Invoke-Compose -cmdArgs $upArgs
   }
   "down" {
-    Invoke-Compose -Args @("down", "-v", "--remove-orphans")
+    Invoke-Compose -cmdArgs @("down", "-v", "--remove-orphans")
   }
   "logs" {
-    Invoke-Compose -Args @("logs", "-f", "--tail", "100")
+    Invoke-Compose -cmdArgs @("logs", "-f", "--tail", "100")
   }
   "config" {
-    Invoke-Compose -Args @("config")
+    Invoke-Compose -cmdArgs @("config")
   }
 }

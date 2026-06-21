@@ -48,8 +48,8 @@ def config():
 def _reject_local_auth_when_supabase_mode() -> None:
     if is_supabase_mode():
         raise HTTPException(
-            status_code=503,
-            detail="Local auth is disabled when AUTH_MODE=supabase",
+            status_code=410,
+            detail="Use Supabase Auth when AUTH_MODE=supabase",
         )
 
 

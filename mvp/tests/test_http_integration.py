@@ -8,7 +8,7 @@ import unittest
 import requests
 
 
-BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000").rstrip("/")
+BASE_URL = os.getenv("API_BASE_URL", "http://api:8000").rstrip("/")
 
 
 class HttpIntegrationTests(unittest.TestCase):

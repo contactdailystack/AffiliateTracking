@@ -7,12 +7,12 @@ MVP for monitoring affiliate link health, redirect behavior, and tracking parame
 - Tracks links per project, scans them, and creates issues when integrity breaks
 
 ## Core Features
-- Register/login users and tenants
+- Supabase authentication for users and tenants
 - Create projects, merchant rules, and import links
 - Start scans and view scan history
 - Detect 404, redirect loop, timeout, SSL/domain errors, and tracking loss
 - List, export, and resolve issues
-- Send email and Telegram alerts
+- Send email and Discord alerts
 
 ## Main Modules
 - `api/` FastAPI routes, auth, payments, scan triggers
@@ -31,6 +31,8 @@ MVP for monitoring affiliate link health, redirect behavior, and tracking parame
 ```bash
 .\compose.ps1 -Mode prod
 ```
+
+Production uses `AUTH_MODE=supabase`, Vercel frontend hosting, ngrok API tunnel, Supabase Auth/DB, and Upstash Redis.
 
 ## Endpoints
 - `/auth`

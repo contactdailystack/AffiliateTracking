@@ -136,7 +136,18 @@ class TestApiRoutes(unittest.TestCase):
             mock_wordpress_sync.assert_called_once()
 
             response = self.client.post("/tenants", json={"name": "Blocked"})
-            self.assertIn(response.status_code, (404, 410))
+            self.assertEqual(response.status_code, 404)
+
+    def test_cors_allows_vercel_frontend_origin(self):
+        response = self.client.get(
+            "/health",
+            headers={"Origin": "https://dailystack-affiliate.vercel.app"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.headers.get("access-control-allow-origin"),
+            "https://dailystack-affiliate.vercel.app",
+        )
 
     def test_issue_routes_and_auth_smoke(self):
         issue_row = {

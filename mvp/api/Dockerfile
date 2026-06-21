@@ -46,6 +46,6 @@ USER appuser
 EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import httpx; httpx.get('http://localhost:8000/health')" || exit 1
+    CMD python -c "import httpx; httpx.get('http://api:8000/health')" || exit 1
 
 CMD ["sh", "-c", "gunicorn -k uvicorn.workers.UvicornWorker -w ${GUNICORN_WORKERS:-2} --timeout ${GUNICORN_TIMEOUT:-120} --access-logfile - --error-logfile - --capture-output -b ${GUNICORN_BIND:-0.0.0.0:8000} mvp.api.main:app"]

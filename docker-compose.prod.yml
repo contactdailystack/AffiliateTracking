@@ -9,19 +9,29 @@ services:
 
   api:
     restart: always
+    depends_on: {}
     environment:
       APP_ENV: production
       LOG_LEVEL: INFO
       GUNICORN_WORKERS: "2"
       GUNICORN_TIMEOUT: "120"
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
 
   worker:
     restart: always
+    depends_on: {}
     environment:
       APP_ENV: production
       LOG_LEVEL: INFO
       CELERY_LOG_LEVEL: INFO
       CELERY_CONCURRENCY: "4"
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
 
   nginx:
     restart: always

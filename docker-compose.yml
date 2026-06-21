@@ -71,6 +71,8 @@ services:
       SUPABASE_JWT_ISSUER: ${SUPABASE_JWT_ISSUER:-}
       SUPABASE_JWT_AUDIENCE: ${SUPABASE_JWT_AUDIENCE:-authenticated}
       SUPABASE_JWKS_URL: ${SUPABASE_JWKS_URL:-}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-}
       SCAN_ALLOWED_HOSTS: ${SCAN_ALLOWED_HOSTS:-}
       SCAN_DENIED_HOSTS: ${SCAN_DENIED_HOSTS:-}
       SCAN_ALLOWED_CIDRS: ${SCAN_ALLOWED_CIDRS:-}
@@ -97,7 +99,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import httpx; raise SystemExit(0 if httpx.get('http://localhost:8000/readyz', timeout=5).status_code == 200 else 1)\""]
+      test: ["CMD-SHELL", "python -c \"import httpx; raise SystemExit(0 if httpx.get('http://api:8000/readyz', timeout=5).status_code == 200 else 1)\""]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -147,6 +149,8 @@ services:
       SUPABASE_JWT_ISSUER: ${SUPABASE_JWT_ISSUER:-}
       SUPABASE_JWT_AUDIENCE: ${SUPABASE_JWT_AUDIENCE:-authenticated}
       SUPABASE_JWKS_URL: ${SUPABASE_JWKS_URL:-}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-}
       SCAN_ALLOWED_HOSTS: ${SCAN_ALLOWED_HOSTS:-}
       SCAN_DENIED_HOSTS: ${SCAN_DENIED_HOSTS:-}
       SCAN_ALLOWED_CIDRS: ${SCAN_ALLOWED_CIDRS:-}

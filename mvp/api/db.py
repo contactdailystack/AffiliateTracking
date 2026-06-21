@@ -4,7 +4,7 @@ import os
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql+psycopg://mvp:mvp@localhost:5432/mvp",
+    "postgresql+psycopg://mvp:mvp@postgres:5432/mvp",
 )
 
 # NOTE: For MVP, simple engine/session.

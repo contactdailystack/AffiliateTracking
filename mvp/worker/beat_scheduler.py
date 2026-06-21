@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql+psycopg://mvp:mvp@localhost:5432/mvp",
+    "postgresql+psycopg://mvp:mvp@postgres:5432/mvp",
 )
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)

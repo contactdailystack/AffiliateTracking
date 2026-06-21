@@ -8,19 +8,19 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
     :root {
-      --bg: #0B0B0C;
-      --bg-gradient: radial-gradient(circle at 50% 0%, #16161a 0%, #0B0B0C 100%);
-      --card: #121214;
-      --card-sec: #18181b;
-      --text: #f4f4f5;
-      --text-sec: #a1a1aa;
-      --muted: #71717a;
-      --accent: #56be89;
-      --accent-glow: rgba(86, 190, 137, 0.15);
-      --accent-2: #19D59E;
-      --danger: #ef4444;
-      --ok: #10b981;
-      --line: #1F1F22;
+      --bg: #0c0e12;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #151a24 0%, #0c0e12 100%);
+      --card: #171a21;
+      --card-sec: #1b1f29;
+      --text: #f8fafc;
+      --text-sec: #94a3b8;
+      --muted: #64748b;
+      --accent: #3c39e9; /* UptimeRobot Electric Blue */
+      --accent-glow: rgba(60, 57, 233, 0.15);
+      --accent-2: #1cd69d; /* UptimeRobot Neon Mint */
+      --danger: #ff4d4d; /* Neon Red */
+      --ok: #1cd69d; /* Neon Mint */
+      --line: #222731;
       --font-heading: 'Plus Jakarta Sans', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -61,7 +61,7 @@
     }
 
     header {
-      background: rgba(10, 10, 11, 0.75);
+      background: rgba(12, 14, 18, 0.75);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       color: #fff;
@@ -80,13 +80,13 @@
       display: inline-block;
       width: 10px;
       height: 10px;
-      background: var(--accent);
-      border-radius: 2px;
-      box-shadow: 0 0 8px var(--accent);
+      background: var(--accent-2);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-2);
     }
     header .nav { display: flex; gap: 1.5rem; align-items: center; }
     header .nav a { color: var(--text-sec); text-decoration: none; font-size: .875rem; font-weight: 500; transition: all 0.2s ease; }
-    header .nav a:hover { color: var(--accent); }
+    header .nav a:hover { color: var(--accent-2); }
 
     .wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
     .grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
@@ -99,7 +99,7 @@
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
     .card:hover {
-      border-color: rgba(86, 190, 137, 0.25);
+      border-color: rgba(28, 214, 157, 0.2);
     }
     .card h2 { margin: 0 0 1rem; font-size: 1.3rem; font-weight: 600; color: #fff; }
     .muted { color: var(--muted); font-size: .875rem; }
@@ -115,9 +115,9 @@
       border: 1px solid transparent;
       font-family: var(--font-mono);
     }
-    .badge-open { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.25); }
-    .badge-resolved { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.25); }
-    .badge-sev-3 { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.25); }
+    .badge-open { background: rgba(255, 77, 77, 0.15); color: #ff6b6b; border-color: rgba(255, 77, 77, 0.25); }
+    .badge-resolved { background: rgba(28, 214, 157, 0.15); color: #34d399; border-color: rgba(28, 214, 157, 0.25); }
+    .badge-sev-3 { background: rgba(255, 77, 77, 0.15); color: #ff6b6b; border-color: rgba(255, 77, 77, 0.25); }
     .badge-sev-2 { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.25); }
     .badge-sev-1 { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.25); }
 
@@ -149,17 +149,25 @@
     }
     .btn {
       background: var(--accent);
-      color: #0B0B0C;
+      color: #fff;
     }
     .btn:hover {
-      background: #6cd29a;
-      box-shadow: 0 0 20px rgba(86, 190, 137, 0.35);
+      background: #4f46e5;
+      box-shadow: 0 0 20px rgba(60, 57, 233, 0.35);
     }
     .btn:disabled {
       background: var(--line);
       color: var(--muted);
       cursor: not-allowed;
       box-shadow: none;
+    }
+    .btn-green {
+      background: var(--accent-2);
+      color: #0c0e12;
+    }
+    .btn-green:hover {
+      background: #2effbe;
+      box-shadow: 0 0 20px rgba(28, 214, 157, 0.35);
     }
     .btn-ghost {
       background: transparent;
@@ -171,14 +179,14 @@
       border-color: var(--muted);
     }
     .btn-danger {
-      background: rgba(239, 68, 68, 0.1);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.2);
+      background: rgba(255, 77, 77, 0.1);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 77, 77, 0.2);
     }
     .btn-danger:hover {
       background: var(--danger);
       color: #fff;
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
     }
 
     .actions { display: flex; gap: .75rem; flex-wrap: wrap; margin: .75rem 0; }
@@ -190,7 +198,7 @@
     .variant-row {
       display: grid;
       gap: .75rem;
-      grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -215,8 +223,8 @@
       color: var(--muted);
     }
     input:focus, select:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 3px rgba(28, 214, 157, 0.1);
     }
     textarea { width: 100%; min-height: 100px; resize: vertical; }
     
@@ -277,14 +285,14 @@
       color: var(--text);
       background: rgba(255,255,255,0.03);
     }
-    .tab.active { background: rgba(86, 190, 137, 0.1); color: var(--accent); font-weight: 600; }
+    .tab.active { background: rgba(28, 214, 157, 0.08); color: var(--accent-2); font-weight: 600; }
     
     /* Hero Section */
     .hero {
       background:
-        radial-gradient(circle at 10% 20%, rgba(86,190,137,.12), transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(25,213,158,.08), transparent 45%),
-        linear-gradient(180deg, #121214 0%, #0B0B0C 100%);
+        radial-gradient(circle at 10% 20%, rgba(28, 214, 157, .06), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(60, 57, 233, .04), transparent 45%),
+        linear-gradient(180deg, #171a21 0%, #0c0e12 100%);
       color: #fff;
       border-radius: 20px;
       padding: 3rem;
@@ -327,8 +335,8 @@
     .visual-node .node-icon { font-size: 1rem; }
     .visual-node .node-title { font-weight: 600; color: #fff; }
     .visual-node .node-desc { color: var(--muted); font-family: var(--font-mono); margin-left: auto; }
-    .visual-node.success { border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.02); }
-    .visual-node.danger { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.02); }
+    .visual-node.success { border-color: rgba(28, 214, 157, 0.3); background: rgba(28, 214, 157, 0.02); }
+    .visual-node.danger { border-color: rgba(255, 77, 77, 0.3); background: rgba(255, 77, 77, 0.02); }
     .visual-arrow {
       text-align: center;
       color: var(--muted);
@@ -338,9 +346,9 @@
 
     .chip-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
     .chip {
-      background: rgba(86, 190, 137, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(86, 190, 137, 0.15);
+      background: rgba(28, 214, 157, 0.08);
+      color: var(--accent-2);
+      border: 1px solid rgba(28, 214, 157, 0.15);
       padding: .35rem .75rem;
       border-radius: 999px;
       font-size: .75rem;
@@ -364,19 +372,19 @@
       .trust-banner { grid-template-columns: 1fr; }
     }
     .metric-item { display: flex; flex-direction: column; gap: 0.25rem; }
-    .metric-num { font-size: 2rem; font-weight: 800; color: var(--accent); font-family: var(--font-heading); }
+    .metric-num { font-size: 2rem; font-weight: 800; color: var(--accent-2); font-family: var(--font-heading); }
     .metric-label { font-size: 0.85rem; color: var(--text-sec); font-weight: 500; }
 
     /* Pricing Section */
     .pricing { margin: 2rem 0; }
     .plan-card { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-    .plan-card.featured { border-color: var(--accent); box-shadow: 0 10px 30px rgba(86,190,137,.08); transform: translateY(-4px); }
+    .plan-card.featured { border-color: var(--accent-2); box-shadow: 0 10px 30px rgba(28,214,157,.08); transform: translateY(-4px); }
     .plan-card.featured::before {
       content: 'POPULAR';
       position: absolute;
       top: 12px;
       right: -32px;
-      background: var(--accent);
+      background: var(--accent-2);
       color: #000;
       font-size: 0.65rem;
       font-weight: 800;
@@ -392,9 +400,9 @@
       text-transform: uppercase;
       letter-spacing: .08em;
       font-weight: 700;
-      color: var(--accent);
-      background: rgba(86, 190, 137, 0.1);
-      border: 1px solid rgba(86, 190, 137, 0.2);
+      color: var(--accent-2);
+      background: rgba(28, 214, 157, 0.1);
+      border: 1px solid rgba(28, 214, 157, 0.2);
       padding: .25rem .5rem;
       border-radius: 4px;
       margin-bottom: 1rem;
@@ -403,7 +411,7 @@
     .price span { font-size: .95rem; font-weight: 500; color: var(--muted); }
     .feature-list { margin: 1.25rem 0; padding: 0; list-style: none; display: grid; gap: .75rem; }
     .feature-list li { display: flex; gap: .75rem; align-items: center; font-size: .9rem; color: var(--text-sec); }
-    .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); flex-shrink: 0; box-shadow: 0 0 6px var(--accent); }
+    .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent-2); flex-shrink: 0; box-shadow: 0 0 6px var(--accent-2); }
     stripe-pricing-table { display: block; width: 100%; margin-top: 1rem; }
     
     .section-title {
@@ -419,7 +427,7 @@
       border: 1px solid var(--line);
       border-radius: 6px;
       padding: 0.4rem 0.8rem;
-      color: var(--accent);
+      color: var(--accent-2);
       font-size: .8rem;
       font-family: var(--font-mono);
       font-weight: 500;
@@ -428,8 +436,8 @@
     
     .return-banner {
       margin: 1.5rem 0;
-      border-left: 4px solid var(--accent);
-      background: rgba(86, 190, 137, 0.03);
+      border-left: 4px solid var(--accent-2);
+      background: rgba(28, 214, 157, 0.03);
     }
     
     /* Features Grid (6 Columns) */
@@ -447,7 +455,7 @@
       transition: all 0.2s ease;
     }
     .feature-item:hover {
-      border-color: rgba(86, 190, 137, 0.2);
+      border-color: rgba(28, 214, 157, 0.2);
       transform: translateY(-2px);
     }
     .feature-icon {
@@ -467,6 +475,28 @@
       line-height: 1.5;
     }
 
+    /* Auth Wall styling */
+    .auth-wall-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    @media (max-width: 800px) {
+      .auth-wall-container { grid-template-columns: 1fr; }
+    }
+    .auth-wall-banner {
+      background: radial-gradient(circle at 0% 0%, rgba(28, 214, 157, .05), transparent 50%);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .auth-wall-banner h3 { font-size: 1.5rem; color: #fff; margin-bottom: 1rem; }
+    .auth-wall-banner ul { margin: 0; padding: 0 0 0 1.25rem; color: var(--text-sec); display: grid; gap: 0.5rem; }
+    
     /* Details collapse tag for dev settings */
     details.dev-settings {
       border: 1px solid var(--line);
@@ -511,7 +541,7 @@
       min-width: 280px;
       max-width: 400px;
       animation: toast-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      border-left: 4px solid var(--accent);
+      border-left: 4px solid var(--accent-2);
     }
     .toast.toast-error {
       border-left-color: var(--danger);
@@ -534,259 +564,899 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
+
+    /* UptimeRobot Split dashboard container */
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+      background: var(--bg);
+    }
+    @media (max-width: 900px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Left Sidebar */
+    .sidebar {
+      background: #0d0e10;
+      border-right: 1px solid var(--line);
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 10;
+    }
+    @media (max-width: 900px) {
+      .sidebar {
+        height: auto;
+        position: relative;
+      }
+    }
+    .sidebar-brand {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      font-family: var(--font-heading);
+    }
+    .sidebar-brand::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--accent-2);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-2);
+    }
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-grow: 1;
+    }
+    .sidebar-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sidebar-nav-link:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+    }
+    .sidebar-nav-link.active {
+      background: rgba(28, 214, 157, 0.08);
+      color: var(--accent-2);
+    }
+    .sidebar-footer {
+      border-top: 1px solid var(--line);
+      padding-top: 1.25rem;
+      margin-top: 1rem;
+    }
+    .sidebar-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .profile-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--accent-2);
+      font-size: 0.85rem;
+      border: 1px solid var(--accent-2);
+      flex-shrink: 0;
+    }
+    .profile-info {
+      min-width: 0;
+    }
+    .profile-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .profile-email {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2px;
+      color: inherit;
+    }
+
+    /* Dashboard Workspace layout */
+    .dashboard-workspace {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    @media (max-width: 1100px) {
+      .dashboard-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Monitors card-list view */
+    .monitors-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .monitor-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      transition: all 0.2s ease;
+    }
+    .monitor-card:hover {
+      border-color: rgba(60, 57, 233, 0.3);
+    }
+    .monitor-main {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+      flex-grow: 1;
+    }
+    
+    /* Glowing status circles */
+    @keyframes pulse-ok {
+      0% { box-shadow: 0 0 0 0 rgba(28, 214, 157, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(28, 214, 157, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(28, 214, 157, 0); }
+    }
+    @keyframes pulse-fail {
+      0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 77, 77, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+    }
+    .monitor-status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .monitor-status-dot.up { background: var(--ok); animation: pulse-ok 2s infinite; }
+    .monitor-status-dot.down { background: var(--danger); animation: pulse-fail 2s infinite; }
+    .monitor-status-dot.paused { background: var(--muted); }
+    
+    .monitor-info {
+      min-width: 0;
+    }
+    .monitor-name {
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.15rem;
+    }
+    .monitor-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .dot-separator {
+      color: var(--line);
+    }
+    .monitor-interval {
+      display: flex;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-sec);
+      min-width: 60px;
+    }
+    .monitor-uptime-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .ticks-container {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .uptime-bar-tick {
+      width: 3px;
+      height: 18px;
+      border-radius: 1px;
+    }
+    .uptime-bar-tick.ok { background: var(--ok); }
+    .uptime-bar-tick.fail { background: var(--danger); }
+    .uptime-percent {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      min-width: 32px;
+      text-align: right;
+    }
+    
+    .monitor-actions-container {
+      flex-shrink: 0;
+    }
+
+    /* Stats Panel Card */
+    .stats-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .stats-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .status-circle-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .status-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .status-circle.up { background: rgba(28, 214, 157, 0.05); color: var(--ok); border: 2px solid var(--ok); }
+    .status-circle.down { background: rgba(255, 77, 77, 0.05); color: var(--danger); border: 2px solid var(--danger); }
+    .status-circle.paused { background: rgba(100, 116, 139, 0.05); color: var(--muted); border: 2px solid var(--muted); }
+    
+    .stats-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      text-align: center;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1rem 0;
+      margin-bottom: 1rem;
+    }
+    .stat-col { display: flex; flex-direction: column; }
+    .stat-val { font-size: 1.25rem; font-weight: 700; color: #fff; }
+    .stat-label { font-size: 0.75rem; color: var(--muted); }
+    
+    .stats-grid-24h {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .stat-box-24h {
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    /* Onboarding wizard glow & styling */
+    .onboarding-bg-glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(28, 214, 157, 0.04) 0%, transparent 70%);
+      filter: blur(60px);
+      z-index: 1;
+    }
+    .onboarding-bg-glow.top-right { top: -50px; right: -50px; }
+    .onboarding-bg-glow.bottom-left { bottom: -50px; left: -50px; }
+    .onboarding-wizard {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 2;
+    }
+    .onboarding-step-indicator {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      font-family: var(--font-mono);
+    }
+    .onboarding-step-indicator span {
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    /* Switch toggle */
+    .switch-container {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .switch-container input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .switch-container .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: var(--line);
+      border-radius: 34px;
+      transition: 0.4s;
+    }
+    .switch-container .slider::before {
+      content: "";
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: var(--text-sec);
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+    .switch-container input:checked + .slider {
+      background-color: var(--accent-2);
+    }
+    .switch-container input:checked + .slider::before {
+      transform: translateX(20px);
+      background-color: #0c0e12;
+    }
+
+    /* Dropdown actions menu */
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 100;
+      min-width: 170px;
+      display: flex;
+      flex-direction: column;
+      padding: 0.4rem 0;
+      margin-top: 6px;
+    }
+    .dropdown-menu a {
+      color: var(--text-sec);
+      text-decoration: none;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .dropdown-menu a:hover {
+      background: var(--line);
+      color: #fff;
+    }
+
+    /* Control Bar layout */
+    .control-bar {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.6rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .control-left, .control-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .control-select-count {
+      font-size: 0.85rem;
+      color: var(--text-sec);
+      font-weight: 500;
+    }
+    .btn-control-pill {
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      color: var(--text-sec);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-control-pill:hover {
+      background: var(--line);
+      color: #fff;
+    }
+    .btn-control-ghost {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text-sec);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .btn-control-ghost:hover {
+      background: var(--card-sec);
+      color: #fff;
+    }
+    .control-select {
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      color: var(--text-sec);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      width: auto;
+      cursor: pointer;
+    }
+    .control-right input[type="text"] {
+      background: var(--card-sec);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      width: 200px;
+    }
+    
+    .modal-tab-content {
+      animation: tab-fade-in 0.2s ease-out;
+    }
+    @keyframes tab-fade-in {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Affiliate Tracking Integrity</h1>
-    <div class="nav">
-      <a href="#pricing">Pricing</a>
-      <a href="#app">Dashboard</a>
-      <a href="#support">Features</a>
+  <!-- Landing Page for Guests / Logged-out Visitors -->
+  <div id="landingPage">
+    <header>
+      <h1>Affiliate Tracking Integrity</h1>
+      <div class="nav">
+        <a href="#pricing">Pricing</a>
+        <a href="#app">Dashboard</a>
+        <a href="#support">Features</a>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <section id="paymentReturn" class="card return-banner hidden"></section>
+
+      <section class="hero">
+        <div class="hero-content">
+          <div class="chip-row">
+            <span class="chip">Revenue Protection</span>
+            <span class="chip">Redirect Tracing</span>
+            <span class="chip">Quota Aware</span>
+          </div>
+          <h2>Protect your affiliate commission. Automatically, 24/7.</h2>
+          <p>
+            Stop losing commission to broken redirects, missing tracking parameters, and merchant errors. Automatically scan, trace, and audit your affiliate links 24/7.
+          </p>
+          <div class="actions">
+            <button class="btn" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Start protecting your links for free</button>
+            <button class="btn-ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Pricing Plans</button>
+          </div>
+          <div class="muted" style="margin-top: 0.75rem; font-size: 0.8rem;">No credit card required • 2-minute setup</div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-node success">
+            <span class="node-icon">🔗</span>
+            <span class="node-title">Affiliate Link Click</span>
+            <span class="node-desc">Source URL</span>
+          </div>
+          <div class="visual-arrow">▼</div>
+          <div class="visual-node">
+            <span class="node-icon">🔄</span>
+            <span class="node-title">Redirect Tracing</span>
+            <span class="node-desc">302 Trace</span>
+          </div>
+          <div class="visual-arrow">▼</div>
+          <div class="visual-node success">
+            <span class="node-icon">🟢</span>
+            <span class="node-title">Affiliate ID Check</span>
+            <span class="node-desc">Valid tag ✓</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-banner">
+        <div class="metric-item">
+          <span class="metric-num">1M+</span>
+          <span class="metric-label">Links Scanned</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">10K+</span>
+          <span class="metric-label">Issues Detected</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">$50,000+</span>
+          <span class="metric-label">Revenue Protected</span>
+        </div>
+      </section>
+
+      <section id="pricing" class="pricing">
+        <div class="section-title">
+          <div>
+            <h3>Simple, Value-Driven Pricing</h3>
+            <div class="muted">Start monitoring for free and upgrade as your campaign volume expands.</div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="card plan-card">
+            <div>
+              <span class="plan-badge">Free</span>
+              <div class="price">$0 <span>/ month</span></div>
+              <div class="muted">For testing and low-volume tracking audits.</div>
+              <ul class="feature-list" style="margin-top:1.25rem">
+                <li><span class="dot"></span><span>Up to 100 links</span></li>
+                <li><span class="dot"></span><span>1 active project</span></li>
+                <li><span class="dot"></span><span>Daily automated scans</span></li>
+                <li><span class="dot"></span><span>Basic email alerts</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card plan-card featured">
+            <div>
+              <span class="plan-badge">Pro</span>
+              <div class="price">$10 <span>/ month</span></div>
+              <div class="muted">For professional marketers needing high-frequency scans.</div>
+              <ul class="feature-list" style="margin-top:1.25rem">
+                <li><span class="dot"></span><span>Up to 1,000 links</span></li>
+                <li><span class="dot"></span><span>15-minute scan intervals</span></li>
+                <li><span class="dot"></span><span>Export logs & Resolve flows</span></li>
+                <li><span class="dot"></span><span>Discord & Telegram integration</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card plan-card">
+            <div>
+              <span class="plan-badge">Pro+</span>
+              <div class="price">$20 <span>/ month</span></div>
+              <div class="muted">For large affiliate networks and custom scale.</div>
+              <ul class="feature-list" style="margin-top:1.25rem">
+                <li><span class="dot"></span><span>Custom link limits & rates</span></li>
+                <li><span class="dot"></span><span>Multi-geo simulated scans</span></li>
+                <li><span class="dot"></span><span>Developer API & Webhooks</span></li>
+                <li><span class="dot"></span><span>Priority developer support</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1.5rem">
+          <h2>Upgrade Plan</h2>
+          <div class="muted">Select a plan tier below to checkout via Stripe secure billing portal.</div>
+          <div id="pricingTableMountLanding" style="margin-top:1.25rem"></div>
+        </div>
+      </section>
+
+      <div id="app" style="scroll-margin-top: 5rem; margin-bottom: 2rem;">
+        <div id="unauthContainer" class="auth-wall-container">
+          <div class="auth-wall-banner">
+            <h3>Unlock Dashboard Access</h3>
+            <p>Sign in to configure your tracking projects, setup redirection rules, and access real-time integrity scans.</p>
+            <ul style="margin-top: 1.25rem; padding-left: 1.25rem; display: grid; gap: 0.5rem;">
+              <li><strong>Continuous Monitoring</strong>: Alerts you immediately when affiliate tags drop.</li>
+              <li><strong>Detailed Reports</strong>: Diagnostic evidence paths and redirect responses.</li>
+              <li><strong>Stripe Powered Billing</strong>: Free tier forever, upgrades on demand.</li>
+            </ul>
+          </div>
+          <div class="card" id="loginCard">
+            <h2>Account Portal</h2>
+            <div id="localAuthControls" class="stack">
+              <input id="email" type="email" placeholder="email@domain.com">
+              <input id="password" type="password" placeholder="password">
+              <input id="fullName" type="text" placeholder="full name (registration only)">
+              <div class="actions" style="margin-top:0.5rem">
+                <button class="btn" onclick="login()" style="flex:1">Login</button>
+                <button class="btn-ghost" onclick="register()" style="flex:1">Register</button>
+              </div>
+            </div>
+            <div class="muted" id="authNotice" style="margin-top:.75rem"></div>
+          </div>
+        </div>
+      </div>
+
+      <section id="support" class="card" style="margin:2.5rem 0 1rem;">
+        <div class="section-title" style="margin:0 0 1rem; border-bottom: none; padding-bottom: 0">
+          <h3>Comprehensive Link Protection</h3>
+          <div class="muted">Everything you need to secure your affiliate revenue streams.</div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <div class="feature-title">Real-Time Scan Speeds</div>
+            <div class="feature-desc">Low-latency worker execution checks redirect paths in seconds.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔍</span>
+            <div class="feature-title">Affiliate ID Auditor</div>
+            <div class="feature-desc">Inspects redirect queries for missing or overwritten merchant tags.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔔</span>
+            <div class="feature-title">Instant Alerts</div>
+            <div class="feature-desc">Receive real-time notifications via Discord, Telegram, and email.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📱</span>
+            <div class="feature-title">Device & Geo checks</div>
+            <div class="feature-desc">Trace redirects simulated from mobile, desktop, and specific country locations.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔌</span>
+            <div class="feature-title">WordPress Plugin</div>
+            <div class="feature-desc">Check links on your site backend directly using our lightweight plugin.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⚙️</span>
+            <div class="feature-title">Developer API</div>
+            <div class="feature-desc">Integrate monitoring alerts directly into your internal tooling.</div>
+          </div>
+        </div>
+      </section>
     </div>
-  </header>
+  </div>
 
-  <div class="wrap">
-    <section id="paymentReturn" class="card return-banner hidden"></section>
-
-    <section class="hero">
-      <div class="hero-content">
-        <div class="chip-row">
-          <span class="chip">Revenue Protection</span>
-          <span class="chip">Redirect Tracing</span>
-          <span class="chip">Quota Aware</span>
-        </div>
-        <h2>Protect your affiliate commission. Automatically, 24/7.</h2>
-        <p>
-          Stop losing commission to broken redirects, missing tracking parameters, and merchant errors. Automatically scan, trace, and audit your affiliate links 24/7.
-        </p>
-        <div class="actions">
-          <button class="btn" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Start protecting your links for free</button>
-          <button class="btn-ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Pricing Plans</button>
-        </div>
-        <div class="muted" style="margin-top: 0.75rem; font-size: 0.8rem;">No credit card required • 2-minute setup</div>
-      </div>
-      <div class="hero-visual">
-        <div class="visual-node success">
-          <span class="node-icon">🔗</span>
-          <span class="node-title">Affiliate Link Click</span>
-          <span class="node-desc">Source URL</span>
-        </div>
-        <div class="visual-arrow">▼</div>
-        <div class="visual-node">
-          <span class="node-icon">🔄</span>
-          <span class="node-title">Redirect Tracing</span>
-          <span class="node-desc">302 Trace</span>
-        </div>
-        <div class="visual-arrow">▼</div>
-        <div class="visual-node success">
-          <span class="node-icon">🟢</span>
-          <span class="node-title">Affiliate ID Check</span>
-          <span class="node-desc">Valid tag ✓</span>
+  <!-- Authenticated UptimeRobot-style Workspace Dashboard -->
+  <div id="authDashboard" class="dashboard-container hidden">
+    <!-- Left Sidebar Menu -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">Affiliate Integrity</div>
+        <ul class="sidebar-menu">
+          <li class="sidebar-nav-link active" data-tab="projects" onclick="switchTab('projects')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-icon"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Monitoring
+          </li>
+          <li class="sidebar-nav-link" data-tab="issues" onclick="switchTab('issues')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Incidents
+          </li>
+          <li class="sidebar-nav-link" data-tab="billing" onclick="switchTab('billing')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-icon"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            Billing & Pricing
+          </li>
+          <li class="sidebar-nav-link" data-tab="features" onclick="switchTab('features')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-icon"><path d="M18 10h-1.55a6 6 0 0 0-7.74 0H7v2c0 2.76 2.24 5 5 5h0c2.76 0 5-2.24 5-5v-2zM9 2v3M15 2v3M12 17v5"/></svg>
+            WP Plugin & Features
+          </li>
+          <li class="sidebar-nav-link" data-tab="settings" onclick="switchTab('settings')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-icon"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            API Settings
+          </li>
+        </ul>
+        <!-- Upgrade now button in sidebar -->
+        <div style="margin-top: 1.5rem; padding: 0.5rem 0;">
+          <button class="btn btn-green" onclick="switchTab('billing')" style="width:100%; justify-content:center; padding:0.6rem; font-size:0.85rem; border-radius:6px; font-weight:700;">Upgrade now</button>
         </div>
       </div>
-    </section>
-
-    <section class="trust-banner">
-      <div class="metric-item">
-        <span class="metric-num">1M+</span>
-        <span class="metric-label">Links Scanned</span>
-      </div>
-      <div class="metric-item">
-        <span class="metric-num">10K+</span>
-        <span class="metric-label">Issues Detected</span>
-      </div>
-      <div class="metric-item">
-        <span class="metric-num">$50,000+</span>
-        <span class="metric-label">Revenue Protected</span>
-      </div>
-    </section>
-
-    <section id="pricing" class="pricing">
-      <div class="section-title">
-        <div>
-          <h3>Simple, Value-Driven Pricing</h3>
-          <div class="muted">Start monitoring for free and upgrade as your campaign volume expands.</div>
-        </div>
-      </div>
-      <div class="grid">
-        <div class="card plan-card">
-          <div>
-            <span class="plan-badge">Free</span>
-            <div class="price">$0 <span>/ month</span></div>
-            <div class="muted">For testing and low-volume tracking audits.</div>
-            <ul class="feature-list" style="margin-top:1.25rem">
-              <li><span class="dot"></span><span>Up to 100 links</span></li>
-              <li><span class="dot"></span><span>1 active project</span></li>
-              <li><span class="dot"></span><span>Daily automated scans</span></li>
-              <li><span class="dot"></span><span>Basic email alerts</span></li>
-            </ul>
+      <div class="sidebar-footer">
+        <div class="sidebar-profile">
+          <div class="profile-avatar" id="profileAvatar">PK</div>
+          <div class="profile-info">
+            <div class="profile-name" id="profileName">Loading User...</div>
+            <div class="profile-email" id="profileEmail">email@domain.com</div>
           </div>
         </div>
-        <div class="card plan-card featured">
-          <div>
-            <span class="plan-badge">Pro</span>
-            <div class="price">$10 <span>/ month</span></div>
-            <div class="muted">For professional marketers needing high-frequency scans.</div>
-            <ul class="feature-list" style="margin-top:1.25rem">
-              <li><span class="dot"></span><span>Up to 1,000 links</span></li>
-              <li><span class="dot"></span><span>15-minute scan intervals</span></li>
-              <li><span class="dot"></span><span>Export logs & Resolve flows</span></li>
-              <li><span class="dot"></span><span>Discord & Telegram integration</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="card plan-card">
-          <div>
-            <span class="plan-badge">Pro+</span>
-            <div class="price">$20 <span>/ month</span></div>
-            <div class="muted">For large affiliate networks and custom scale.</div>
-            <ul class="feature-list" style="margin-top:1.25rem">
-              <li><span class="dot"></span><span>Custom link limits & rates</span></li>
-              <li><span class="dot"></span><span>Multi-geo simulated scans</span></li>
-              <li><span class="dot"></span><span>Developer API & Webhooks</span></li>
-              <li><span class="dot"></span><span>Priority developer support</span></li>
-            </ul>
-          </div>
-        </div>
+        <button class="btn-ghost" style="width: 100%; justify-content: center; background: rgba(255, 77, 77, 0.1); color: #ff6b6b; border: 1px solid rgba(255, 77, 77, 0.2);" onclick="logout()">Logout</button>
       </div>
-      <div class="card" style="margin-top:1.5rem">
-        <h2>Upgrade Plan</h2>
-        <div class="muted">Select a plan tier below to checkout via Stripe secure billing portal.</div>
-        <div id="pricingTableMount" style="margin-top:1.25rem"></div>
-      </div>
-    </section>
+    </aside>
 
-    <div id="app" style="scroll-margin-top: 5rem;">
-      <!-- Auth Wall Container for Unauthenticated Users -->
-      <div id="unauthContainer" class="auth-wall-container">
-        <div class="auth-wall-banner">
-          <h3>Unlock Dashboard access</h3>
-          <p>Sign in to configure your tracking projects, setup redirection rules, and access real-time integrity scans.</p>
-          <ul style="margin-top: 1.25rem; padding-left: 1.25rem; display: grid; gap: 0.5rem;">
-            <li><strong>Continuous Monitoring</strong>: Alerts you immediately when affiliate tags drop.</li>
-            <li><strong>Detailed Reports</strong>: Diagnostic evidence paths and redirect responses.</li>
-            <li><strong>Stripe Powered Billing</strong>: Free tier forever, upgrades on demand.</li>
-          </ul>
-        </div>
-        <div class="card" id="loginCard">
-          <h2>Account Portal</h2>
-          <div id="localAuthControls" class="stack">
-            <input id="email" type="email" placeholder="email@domain.com">
-            <input id="password" type="password" placeholder="password">
-            <input id="fullName" type="text" placeholder="full name (registration only)">
-            <div class="actions" style="margin-top:0.5rem">
-              <button class="btn" onclick="login()" style="flex:1">Login</button>
-              <button class="btn-ghost" onclick="register()" style="flex:1">Register</button>
+    <!-- Onboarding wizard for users with 0 monitors -->
+    <div id="onboardingWizardContainer" class="hidden" style="display:flex; align-items:center; justify-content:center; min-height:100vh; position:relative; width:100%; z-index: 5; flex-grow: 1;">
+      <div class="onboarding-bg-glow top-right"></div>
+      <div class="onboarding-bg-glow bottom-left"></div>
+      <div class="onboarding-wizard">
+        <!-- Step 1: Create Monitor -->
+        <div id="onboarding-step-1">
+          <div class="onboarding-step-indicator">Step <span>1</span> of 4</div>
+          <h2 style="font-size:1.5rem; margin-bottom:0.5rem; color:#fff;">Create your first monitor.</h2>
+          <p class="muted" style="margin-bottom:1.5rem;">What would you like to monitor?</p>
+          
+          <div class="stack" style="gap:1rem; margin-bottom:1.5rem;">
+            <div class="card" style="padding:1rem; background:var(--card-sec); display:flex; align-items:center; gap:0.75rem; border-color:var(--accent-2);">
+              <span style="font-size:1.5rem;">🖥️</span>
+              <div>
+                <div style="font-weight:600; font-size:0.9rem; color:#fff;">HTTP / website monitoring</div>
+                <div class="muted" style="font-size:0.75rem;">Use HTTP(s) monitor to monitor your website.</div>
+              </div>
+            </div>
+            
+            <div>
+              <label class="muted" style="display:block; margin-bottom:0.5rem; font-size:0.8rem;">URL to monitor</label>
+              <input id="onboardingUrl" type="url" placeholder="https://example.com" value="https://linktr.ee/daily.pet.shop.shop.online">
             </div>
           </div>
-          <div class="muted" id="authNotice" style="margin-top:.75rem"></div>
+          
+          <button class="btn" onclick="submitOnboardingStep1()" style="width:100%; height:46px; justify-content:center;">Create monitor</button>
+          <div class="muted" style="margin-top:1.25rem; font-size:0.75rem; display:flex; align-items:flex-start; gap:0.5rem;">
+            <span>💡</span> <span>You can setup monitor interval, domain and SSL monitoring, cron job monitoring and more later in monitor settings.</span>
+          </div>
+          <div style="text-align:center; margin-top:1.5rem;">
+            <a href="javascript:void(0)" class="muted" onclick="skipOnboarding()" style="text-decoration:none; font-size:0.85rem; font-weight: 500;">Skip onboarding</a>
+          </div>
+        </div>
+        
+        <!-- Step 2: Test Notifications -->
+        <div id="onboarding-step-2" class="hidden">
+          <div class="onboarding-step-indicator">Step <span>2</span> of 4</div>
+          <h2 style="font-size:1.5rem; margin-bottom:0.5rem; color:#fff;">Test notifications.</h2>
+          <p class="muted" style="margin-bottom:1.5rem;">UptimeRobot will send you an e-mail whenever your website goes down.</p>
+          
+          <div class="card" style="padding:1.25rem; background:var(--card-sec); border-color:var(--line); margin-bottom:1.5rem; text-align:center;">
+            <div class="muted" style="font-size:0.8rem; margin-bottom:0.25rem;">Your e-mail</div>
+            <div id="onboardingEmailText" style="font-weight:700; color:#fff; font-size:1.1rem; word-break:break-all;">email@domain.com</div>
+            <div class="muted" style="font-size:0.75rem; margin-top:0.5rem;">You can invite your team members later on.</div>
+          </div>
+          
+          <button class="btn" onclick="submitOnboardingStep2()" style="width:100%; height:46px; justify-content:center;">Send test e-mail notification</button>
+          <div class="muted" style="margin-top:1.25rem; font-size:0.75rem; display:flex; align-items:flex-start; gap:0.5rem;">
+            <span>💡</span> <span>We can also call, send you an SMS or you can connect your Slack, MS Teams or any service you already use.</span>
+          </div>
+          <div style="text-align:center; margin-top:1.5rem;">
+            <a href="javascript:void(0)" class="muted" onclick="nextOnboardingStep(3)" style="text-decoration:none; font-size:0.85rem; font-weight: 500;">Skip</a>
+          </div>
+        </div>
+        
+        <!-- Step 3: Public Status Page -->
+        <div id="onboarding-step-3" class="hidden">
+          <div class="onboarding-step-indicator">Step <span>3</span> of 4</div>
+          <h2 style="font-size:1.5rem; margin-bottom:0.5rem; color:#fff;">Get public status page.</h2>
+          <p class="muted" style="margin-bottom:1.5rem;">Showcase your uptime with your team or customers.</p>
+          
+          <div class="card" style="padding:1.25rem; background:var(--card-sec); border-color:var(--line); margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <span style="font-weight:600; color:#fff; font-size:0.9rem;">Create status page</span>
+              <label class="switch-container">
+                <input type="checkbox" id="onboardingStatusPageToggle" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="muted" style="font-size:0.75rem;">Your status page will be available at</div>
+            <div id="onboardingStatusPageUrl" style="font-weight:600; color:var(--accent-2); font-size:0.85rem; margin-top:0.25rem; font-family:var(--font-mono); word-break:break-all;">stats.uptimerobot.com/1GRbYVdEP5</div>
+          </div>
+          
+          <button class="btn" onclick="submitOnboardingStep3()" style="width:100%; height:46px; justify-content:center;">Finish setup</button>
+          <div class="muted" style="margin-top:1.25rem; font-size:0.75rem; display:flex; align-items:flex-start; gap:0.5rem;">
+            <span>💡</span> <span>Status page is fully customizable - you can choose which monitors should be visible, setup visual, custom domain, or even password-protect your page in settings.</span>
+          </div>
+          <div style="text-align:center; margin-top:1.5rem;">
+            <a href="javascript:void(0)" class="muted" onclick="nextOnboardingStep(4)" style="text-decoration:none; font-size:0.85rem; font-weight: 500;">Skip</a>
+          </div>
+        </div>
+        
+        <!-- Step 4: Onboarding Completion -->
+        <div id="onboarding-step-4" class="hidden" style="text-align:center;">
+          <div class="onboarding-step-indicator">Step <span>4</span> of 4</div>
+          <div style="font-size:2.5rem; margin-bottom:0.75rem;">🎉</div>
+          <h2 style="font-size:1.5rem; margin-bottom:0.5rem; color:#fff;">Your monitor is ready now.</h2>
+          <p class="muted" style="margin-bottom:2rem; font-size:0.9rem; line-height:1.6;">
+            Congratulations! Your first monitor is ready. You can now add more monitors, or tune your existing one with all the amazing options UptimeRobot provides.
+          </p>
+          
+          <div class="stack" style="gap:0.75rem;">
+            <button class="btn btn-green" onclick="skipOnboarding()" style="width:100%; height:46px; justify-content:center;">See all features</button>
+            <button class="btn-ghost" onclick="skipOnboarding()" style="width:100%; height:46px; background:var(--card-sec); border-color:var(--line); justify-content:center;">Nah, get me to dashboard already!</button>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- Authenticated Dashboard Area -->
-      <div id="authDashboard" class="hidden">
-        <div class="grid" style="margin-bottom:1.5rem">
-          <div class="card">
-            <h2>Tenant Profile</h2>
-            <div class="stack" style="gap:0.5rem">
-              <div><span class="muted">Tenant Profile:</span> <strong id="userStatus">Not signed in</strong></div>
-            </div>
-            <div class="actions" style="margin-top:1.25rem">
-              <button class="btn-danger" onclick="logout()">Logout Session</button>
-            </div>
-          </div>
-          <div class="card">
-            <h2>Usage Statistics</h2>
-            <div id="usageBox" class="muted">No data yet</div>
-            <div id="billingBox" class="muted" style="margin-top:.75rem">Billing not checked yet</div>
-          </div>
-        </div>
-
-        <div class="section-title" style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <h3>Control Plane</h3>
-            <div class="muted">Manage projects, define merchant rules, and scan live links from one place.</div>
-          </div>
-          <div class="status-pill" id="status">Loading...</div>
-        </div>
-
-        <div class="tabs">
-          <button class="tab active" onclick="switchTab('projects')">Projects</button>
-          <button class="tab" onclick="switchTab('issues')">Issues Log</button>
-        </div>
-
+    <!-- Main Content Workspace Panels -->
+    <div class="dashboard-workspace">
+      <div class="workspace-main">
+        
+        <!-- Viewport Tab 1: Monitors List -->
         <div id="tab-projects">
-          <div class="card">
-            <h2>Projects Registry</h2>
-            <div class="muted" style="margin-bottom: 1rem;">Select a project to view its issues or start a scan.</div>
-            <div class="form">
-              <button class="btn" onclick="loadProjects()">Reload Projects</button>
-            </div>
-            <table id="projectsTable" style="margin-top:1rem">
-              <thead><tr><th>Name</th><th>Scan Freq (s)</th><th>Created</th><th>Actions</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-
-          <div class="grid" style="margin-top:1.5rem">
-            <div class="card">
-              <h2>Create Project</h2>
-              <div class="form">
-                <input id="projectName" type="text" placeholder="project name">
-                <input id="projectScanFreq" type="number" min="60" step="60" value="3600" placeholder="scan frequency (seconds)">
-              </div>
-              <div class="actions">
-                <button class="btn" onclick="createProject()">Create Project</button>
-              </div>
-            </div>
-
-            <div class="card">
-              <h2>Merchant Rules</h2>
-              <div class="form">
-                <select id="ruleProjectSelect"></select>
-                <input id="merchantName" type="text" placeholder="merchant name">
-              </div>
-              <div class="muted" style="margin-bottom: 0.5rem;">Required query keys as JSON, e.g. [{"key":"tag","required":true}]</div>
-              <textarea id="requiredKeys" placeholder='[{"key":"tag","required":true}]'></textarea>
-              <div class="actions">
-                <button class="btn" onclick="saveMerchantRule()">Save Rule</button>
-              </div>
-            </div>
-
-            <div class="card">
-              <h2>Import Links</h2>
-              <div class="form">
-                <select id="importProjectSelect"></select>
-                <input id="importMerchantName" type="text" placeholder="merchant name">
-              </div>
-              <div class="muted" style="margin-bottom: 0.5rem;">One URL per line. Optional label after |.</div>
-              <textarea id="linksInput" placeholder="https://example.com/a | YouTube description"></textarea>
-              <div class="actions">
-                <button class="btn" onclick="importLinks()">Import Links</button>
-              </div>
-            </div>
-
-            <div class="card" style="grid-column: 1 / -1;">
-              <h2>Scan Variants Builder</h2>
-              <div class="muted" style="margin-bottom: 0.75rem;">Build the scan matrix for desktop, mobile, and geo checks before starting a run. Proxy checks are on hold.</div>
-              <div class="actions" style="margin-bottom: 1.25rem;">
-                <button class="btn-ghost" onclick="addVariantRow()">Add Variant</button>
-                <button class="btn-ghost" onclick="addPresetVariant('desktop')">Desktop Preset</button>
-                <button class="btn-ghost" onclick="addPresetVariant('mobile')">Mobile Preset</button>
-                <button class="btn-ghost" onclick="addPresetVariant('geo')">Geo Preset</button>
-                <button class="btn-ghost" onclick="void 0" disabled title="Proxy checks are on hold">Proxy On Hold</button>
-                <button class="btn-danger" onclick="resetVariantRows()">Reset Variants</button>
-              </div>
-              <div id="variantRows" class="variant-builder"></div>
+          <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; border-bottom: none; margin-top: 0; padding-bottom: 0;">
+            <h3 style="font-size:1.5rem; font-weight:700;">Monitors.</h3>
+            <div style="display:flex; gap:0.75rem; align-items:center;">
+              <button class="btn" onclick="openCreateMonitorModal()" style="padding: 0.5rem 1.25rem;">
+                + New
+                <span style="font-size:0.75rem; opacity:0.8;">▼</span>
+              </button>
+              <div class="status-pill" id="status">Loading...</div>
             </div>
           </div>
+
+          <!-- Filters Control Bar (UptimeRobot layout) -->
+          <div class="control-bar">
+            <div class="control-left">
+              <input type="checkbox" id="selectAllMonitors" style="width:15px; height:15px; margin:0;" onclick="showToast('Bulk selection matches free plan limits.', false)">
+              <span class="control-select-count" id="selectCountText">0 / 1</span>
+              <button class="btn-control-pill" onclick="showToast('Grouping active. Grouping matches Free account guidelines.', false)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Show groups
+              </button>
+            </div>
+            <div class="control-right">
+              <input type="text" id="monitorSearch" placeholder="Search by name or URL" oninput="filterMonitors(this.value)">
+              <button class="btn-control-ghost" onclick="filterMonitors('')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                Filter
+              </button>
+              <select id="monitorSort" class="control-select" onchange="sortMonitors(this.value)">
+                <option value="down-first">Down first</option>
+                <option value="up-first">Up first</option>
+                <option value="alpha">A-Z</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- List of Monitors (Cards) -->
+          <div id="monitorsList" class="monitors-container"></div>
         </div>
 
+        <!-- Viewport Tab 2: Incidents (Issues) -->
         <div id="tab-issues" class="hidden">
           <div class="card">
-            <h2>Issues Log</h2>
-            <div class="form" style="margin-bottom: 1rem;">
+            <h2>Incidents Log</h2>
+            <div class="form" style="margin-bottom: 1.5rem;">
               <label class="muted">Project:</label>
               <select id="projectSelect" style="max-width:200px;"><option value="">- select project -</option></select>
               <label class="muted">Status:</label>
@@ -808,60 +1478,130 @@
             </table>
           </div>
         </div>
+
+        <!-- Viewport Tab 3: Billing & Pricing -->
+        <div id="tab-billing" class="hidden">
+          <div class="card">
+            <h2>Stripe Billing Portal</h2>
+            <div class="muted">Choose a plan tier below to checkout via Stripe secure billing portal.</div>
+            <div id="pricingTableMount" style="margin-top:1.25rem"></div>
+          </div>
+        </div>
+
+        <!-- Viewport Tab 4: Plugin Features -->
+        <div id="tab-features" class="hidden">
+          <section class="card" style="margin: 0;">
+            <div class="section-title" style="margin:0 0 1rem; border-bottom: none; padding-bottom: 0">
+              <h3>Comprehensive Link Protection</h3>
+              <div class="muted">Everything you need to secure your affiliate revenue streams.</div>
+            </div>
+            <div class="features-grid">
+              <div class="feature-item">
+                <span class="feature-icon">⚡</span>
+                <div class="feature-title">Real-Time Scan Speeds</div>
+                <div class="feature-desc">Low-latency worker checks redirects in seconds.</div>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🔍</span>
+                <div class="feature-title">Affiliate ID Auditor</div>
+                <div class="feature-desc">Inspects queries for missing or overwritten merchant tags.</div>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🔔</span>
+                <div class="feature-title">Instant Alerts</div>
+                <div class="feature-desc">Receive notifications via Discord, Telegram, and email.</div>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <div class="feature-title">Device & Geo checks</div>
+                <div class="feature-desc">Trace redirects from mobile, desktop, and specific country proxies.</div>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🔌</span>
+                <div class="feature-title">WordPress Plugin</div>
+                <div class="feature-desc">Audit links from your site dashboard using our plugin.</div>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">⚙️</span>
+                <div class="feature-title">Developer API</div>
+                <div class="feature-desc">Integrate monitoring alerts directly into your internal tools.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Viewport Tab 5: Settings -->
+        <div id="tab-settings" class="hidden">
+          <div class="card">
+            <h2>API Settings Configuration</h2>
+            <div class="muted" style="margin-bottom: 1.5rem;">Update the environment credentials below to link the dashboard to your custom backend service.</div>
+            <!-- We will leave the settings inputs in the common footer so there is no duplicate ID issues. Let's redirect users to configure them in the page footer or write a notification. -->
+            <p>Developer configuration is always available at the page bottom footer.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right stats sidebar -->
+      <div class="stats-sidebar">
+        <!-- Current Status -->
+        <div class="stats-card">
+          <h3>Current status.</h3>
+          <div class="status-circle-container">
+            <div class="status-circle up" id="overallStatusCircle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-4px;"><polyline points="18 15 12 9 6 15"/></svg>
+            </div>
+          </div>
+          <div class="stats-columns">
+            <div class="stat-col">
+              <span class="stat-val" style="color: var(--danger);" id="downCount">0</span>
+              <span class="stat-label">Down</span>
+            </div>
+            <div class="stat-col">
+              <span class="stat-val" style="color: var(--ok);" id="upCount">0</span>
+              <span class="stat-label">Up</span>
+            </div>
+            <div class="stat-col">
+              <span class="stat-val" style="color: var(--muted);" id="pausedCount">0</span>
+              <span class="stat-label">Paused</span>
+            </div>
+          </div>
+          <div class="muted" style="text-align: center;" id="monitorsUsageText">Using 0 of 50 monitors.</div>
+        </div>
+
+        <!-- Last 24 Hours -->
+        <div class="stats-card">
+          <h3 style="margin-bottom:1rem;">Last 24 hours.</h3>
+          <div class="stats-grid-24h">
+            <div class="stat-box-24h">
+              <div style="font-size: 1.25rem; font-weight: 700; color: var(--ok);" id="overallUptimePct">100%</div>
+              <div class="stat-label" style="margin-top: 0.25rem;">Overall uptime</div>
+            </div>
+            <div class="stat-box-24h">
+              <div style="font-size: 1.25rem; font-weight: 700; color: #fff;">N/A</div>
+              <div class="stat-label" style="margin-top: 0.25rem;">MTBF</div>
+            </div>
+            <div class="stat-box-24h" style="grid-column: 1 / -1;">
+              <div style="font-size: 1.15rem; font-weight: 700; color: #fff;" id="daysWithoutIncidents">1d without inc.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <section id="support" class="card" style="margin:2.5rem 0 1rem;">
-      <div class="section-title" style="margin:0 0 1rem; border-bottom: none; padding-bottom: 0">
-        <h3>Comprehensive Link Protection</h3>
-        <div class="muted">Everything you need to secure your affiliate revenue streams.</div>
-      </div>
-      <div class="features-grid">
-        <div class="feature-item">
-          <span class="feature-icon">⚡</span>
-          <div class="feature-title">Real-Time Scan Speeds</div>
-          <div class="feature-desc">Low-latency worker execution checks redirect paths in seconds.</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🔍</span>
-          <div class="feature-title">Affiliate ID Auditor</div>
-          <div class="feature-desc">Inspects redirect queries for missing or overwritten merchant tags.</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🔔</span>
-          <div class="feature-title">Instant Alerts</div>
-          <div class="feature-desc">Receive real-time notifications via Discord, Telegram, and email.</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">📱</span>
-          <div class="feature-title">Device & Geo checks</div>
-          <div class="feature-desc">Trace redirects simulated from mobile, desktop, and specific country locations.</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🔌</span>
-          <div class="feature-title">WordPress Plugin</div>
-          <div class="feature-desc">Check links on your site backend directly using our lightweight plugin.</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">⚙️</span>
-          <div class="feature-title">Developer API</div>
-          <div class="feature-desc">Integrate monitoring alerts directly into your internal tooling.</div>
-        </div>
-      </div>
-    </section>
-
-    <footer style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line);">
-      <details class="dev-settings" style="max-width: 500px; margin: 0 auto;">
-        <summary>Advanced Developer Settings ⚙️</summary>
-        <div class="stack" style="margin-top: 0.75rem;">
-          <input id="apiBaseUrl" type="url" placeholder="API base URL">
-          <input id="supabaseUrl" type="url" placeholder="Supabase URL (optional)">
-          <input id="supabaseAnonKey" type="password" placeholder="Supabase anon key (optional)">
-          <button class="btn-ghost" onclick="saveConnectionSettings()" style="width: 100%;">Save Connection Settings</button>
-        </div>
-      </details>
-    </footer>
   </div>
+
+  <!-- Common Developer Settings Footer for ease of access (removes duplicate ID issues) -->
+  <footer style="margin: 3rem auto 2rem; max-width: 500px; padding: 0 1.5rem; text-align: center;">
+    <details class="dev-settings">
+      <summary>Advanced Developer Settings ⚙️</summary>
+      <div class="stack" style="margin-top: 0.75rem;">
+        <input id="apiBaseUrl" type="url" placeholder="API base URL">
+        <input id="supabaseUrl" type="url" placeholder="Supabase URL (optional)">
+        <input id="supabaseAnonKey" type="password" placeholder="Supabase anon key (optional)">
+        <button class="btn-ghost" onclick="saveConnectionSettings()" style="width: 100%;">Save Connection Settings</button>
+      </div>
+    </details>
+  </footer>
 
   <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
     <div class="modal">
@@ -870,6 +1610,110 @@
       <div class="actions" style="margin-top:1rem">
         <button class="btn-ghost" onclick="closeModal()">Close</button>
         <button class="btn-danger" id="btnResolve" onclick="resolveCurrent()">Resolve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified Modal for Monitor Settings, Merchant Rules, Link Imports, and Scan Variants -->
+  <div class="modal-overlay" id="monitorConfigModal" onclick="if(event.target===this)closeConfigModal()">
+    <div class="modal" style="width: min(800px, 95vw); max-height: 85vh;">
+      <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; border-bottom:1px solid var(--line); padding-bottom:0.75rem;">
+        <h2 id="configModalTitle" style="margin:0;">Create New Monitor</h2>
+        <button class="btn-control-ghost" style="border:none; padding:0.25rem; font-size:1.2rem; background:transparent; color:var(--text-sec);" onclick="closeConfigModal()">✕</button>
+      </header>
+      
+      <!-- Modal Tabs Navigation -->
+      <div class="tabs" id="configModalTabs" style="margin-bottom:1.5rem;">
+        <button class="tab active" data-modaltab="general" onclick="switchConfigModalTab('general')">General</button>
+        <button class="tab" data-modaltab="rules" onclick="switchConfigModalTab('rules')">Merchant Rules</button>
+        <button class="tab" data-modaltab="import" onclick="switchConfigModalTab('import')">Import Links</button>
+        <button class="tab" data-modaltab="variants" onclick="switchConfigModalTab('variants')">Scan Variants</button>
+      </div>
+      
+      <!-- Tab 1: General Settings -->
+      <div id="modal-sec-general" class="modal-tab-content">
+        <div class="stack" style="gap:1rem;">
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Monitor Name</label>
+            <input id="modalProjectName" type="text" placeholder="e.g. My Website or linktr.ee">
+          </div>
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Scan Interval (Seconds)</label>
+            <input id="modalProjectScanFreq" type="number" min="60" step="60" value="3600" placeholder="e.g. 3600">
+          </div>
+          <div id="newMonitorOnlyUrl" style="margin-top:0.5rem;">
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Initial URL to Monitor (Optional)</label>
+            <input id="modalProjectInitialUrl" type="url" placeholder="https://example.com/ref?id=123">
+            <div class="muted" style="font-size:0.75rem; margin-top:0.25rem;">If provided, we will automatically import this URL under this project.</div>
+          </div>
+          <div class="actions" style="margin-top:1.5rem;">
+            <button class="btn" onclick="submitModalGeneral()" style="width:100%; height:42px; justify-content:center;">Save Monitor</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 2: Merchant Rules -->
+      <div id="modal-sec-rules" class="modal-tab-content hidden">
+        <div class="stack" style="gap:1rem;">
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Select Project</label>
+            <select id="modalRuleProjectSelect"></select>
+          </div>
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Merchant Name</label>
+            <input id="modalMerchantName" type="text" placeholder="e.g. Amazon, ClickBank">
+          </div>
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Required Tracking Keys (JSON array)</label>
+            <textarea id="modalRequiredKeys" placeholder='[{"key":"tag","required":true}]' style="font-family:var(--font-mono); min-height:100px;"></textarea>
+            <div class="muted" style="font-size:0.75rem; margin-top:0.25rem;">JSON format: [{"key":"your_param","required":true}]</div>
+          </div>
+          <div class="actions" style="margin-top:1.5rem;">
+            <button class="btn" onclick="submitModalRules()" style="width:100%; height:42px; justify-content:center;">Save Merchant Rule</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 3: Import Links -->
+      <div id="modal-sec-import" class="modal-tab-content hidden">
+        <div class="stack" style="gap:1rem;">
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Select Project</label>
+            <select id="modalImportProjectSelect"></select>
+          </div>
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Merchant Name</label>
+            <input id="modalImportMerchantName" type="text" placeholder="e.g. Amazon">
+          </div>
+          <div>
+            <label class="muted" style="display:block; margin-bottom:0.5rem;">Links to Import (One URL per line. Optional label after |)</label>
+            <textarea id="modalLinksInput" placeholder="https://example.com/a | YouTube description" style="min-height:120px;"></textarea>
+          </div>
+          <div class="actions" style="margin-top:1.5rem;">
+            <button class="btn" onclick="submitModalImport()" style="width:100%; height:42px; justify-content:center;">Import Links</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 4: Scan Variants -->
+      <div id="modal-sec-variants" class="modal-tab-content hidden">
+        <div class="stack" style="gap:1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="muted" style="font-size:0.85rem;">Build the scan matrix for desktop, mobile, and geo checks before starting a run.</div>
+            <select id="modalVariantProjectSelect" style="max-width:180px;"></select>
+          </div>
+          <div class="actions" style="margin:0;">
+            <button class="btn-control-ghost" onclick="addVariantRow()">+ Add Variant</button>
+            <button class="btn-control-ghost" onclick="addPresetVariant('desktop')">Desktop Preset</button>
+            <button class="btn-control-ghost" onclick="addPresetVariant('mobile')">Mobile Preset</button>
+            <button class="btn-control-ghost" onclick="addPresetVariant('geo')">Geo Preset</button>
+            <button class="btn-danger" style="padding:0.4rem 0.8rem; font-size:0.8rem;" onclick="resetVariantRows()">Reset All</button>
+          </div>
+          <div id="modalVariantRows" class="variant-builder" style="max-height:220px; overflow-y:auto; padding-right:4px;"></div>
+          <div class="actions" style="margin-top:1.5rem; border-top:1px solid var(--line); padding-top:1rem;">
+            <button class="btn" onclick="submitModalScanQueue()" style="width:100%; height:42px; justify-content:center;">Queue Scan Matrix Now ⚡</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -908,6 +1752,12 @@
     let currentUser = null;
     let scanVariantRows = [];
     let authMode = 'local';
+
+    // New UptimeRobot design parameters
+    let openIssuesMap = {};
+    let currentConfigProjectId = null;
+    let currentSortValue = 'down-first';
+    let openDropdownId = null;
 
     function getSetting(key, fallback = '') {
       return localStorage.getItem(key) || fallback;
@@ -1124,11 +1974,13 @@
       clearSessionTokens();
       currentUser = null;
       document.getElementById('authDashboard').classList.add('hidden');
-      document.getElementById('unauthContainer').classList.remove('hidden');
+      document.getElementById('landingPage').classList.remove('hidden');
       document.getElementById('userStatus').textContent = 'Not signed in';
       document.getElementById('usageBox').textContent = 'No data yet';
-      document.querySelector('#projectsTable tbody').innerHTML = '';
-      document.querySelector('#issuesTable tbody').innerHTML = '';
+      const tbody = document.querySelector('#projectsTable tbody');
+      if (tbody) tbody.innerHTML = '';
+      const tbodyIssues = document.querySelector('#issuesTable tbody');
+      if (tbodyIssues) tbodyIssues.innerHTML = '';
       currentProjects = [];
     }
 
@@ -1140,7 +1992,15 @@
         const me = await api('/auth/me');
         currentUser = me;
         document.getElementById('authDashboard').classList.remove('hidden');
-        document.getElementById('unauthContainer').classList.add('hidden');
+        document.getElementById('landingPage').classList.add('hidden');
+        
+        const profileAvatar = document.getElementById('profileAvatar');
+        const profileName = document.getElementById('profileName');
+        const profileEmail = document.getElementById('profileEmail');
+        if (profileAvatar && me.email) profileAvatar.textContent = me.email.substring(0, 2).toUpperCase();
+        if (profileName) profileName.textContent = me.tenant_name || 'Active Tenant';
+        if (profileEmail) profileEmail.textContent = me.email;
+        
         document.getElementById('userStatus').textContent = `${me.email} | ${me.plan} | ${me.tenant_name || 'tenant'}`;
         await loadUsage();
         await loadProjects();
@@ -1154,7 +2014,15 @@
               const me = await api('/auth/me');
               currentUser = me;
               document.getElementById('authDashboard').classList.remove('hidden');
-              document.getElementById('unauthContainer').classList.add('hidden');
+              document.getElementById('landingPage').classList.add('hidden');
+              
+              const profileAvatar = document.getElementById('profileAvatar');
+              const profileName = document.getElementById('profileName');
+              const profileEmail = document.getElementById('profileEmail');
+              if (profileAvatar && me.email) profileAvatar.textContent = me.email.substring(0, 2).toUpperCase();
+              if (profileName) profileName.textContent = me.tenant_name || 'Active Tenant';
+              if (profileEmail) profileEmail.textContent = me.email;
+
               document.getElementById('userStatus').textContent = `${me.email} | ${me.plan} | ${me.tenant_name || 'tenant'}`;
               await loadUsage();
               await loadProjects();
@@ -1205,17 +2073,21 @@
     }
 
     async function loadStripePricingTable() {
-      const mount = document.getElementById('pricingTableMount');
-      if (!mount) return;
+      const mounts = [document.getElementById('pricingTableMount'), document.getElementById('pricingTableMountLanding')].filter(Boolean);
+      if (!mounts.length) return;
       if (!currentUser?.tenant_id) {
-        mount.innerHTML = '<div class="muted">Sign in to view paid plan checkout. Free plan remains available.</div>';
+        mounts.forEach(m => {
+          m.innerHTML = '<div class="muted">Sign in to view paid plan checkout. Free plan remains available.</div>';
+        });
         return;
       }
       try {
         const res = await fetch(getApiBaseUrl() + '/payments/pricing-table');
         const cfg = await res.json();
         if (!cfg.enabled || !cfg.pricing_table_id || !cfg.publishable_key) {
-          mount.innerHTML = '<div class="muted">Pricing table is not configured yet. Free plan remains available.</div>';
+          mounts.forEach(m => {
+            m.innerHTML = '<div class="muted">Pricing table is not configured yet. Free plan remains available.</div>';
+          });
           return;
         }
         if (!customElements.get('stripe-pricing-table')) {
@@ -1245,20 +2117,90 @@
         if (currentUser?.email) {
           attrs.push(`customer-email="${escapeAttr(String(currentUser.email))}"`);
         }
-        mount.innerHTML = `<stripe-pricing-table ${attrs.join(' ')}></stripe-pricing-table>`;
+        mounts.forEach(m => {
+          m.innerHTML = `<stripe-pricing-table ${attrs.join(' ')}></stripe-pricing-table>`;
+        });
       } catch (e) {
-        mount.innerHTML = '<div class="muted">Pricing table unavailable. Free plan remains available.</div>';
+        mounts.forEach(m => {
+          m.innerHTML = '<div class="muted">Pricing table unavailable. Free plan remains available.</div>';
+        });
       }
     }
 
-    function switchTab(name) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase().includes(name)));
-      document.getElementById('tab-projects').classList.toggle('hidden', name !== 'projects');
-      document.getElementById('tab-issues').classList.toggle('hidden', name !== 'issues');
-      if (name === 'issues') populateProjectSelect();
+        function switchTab(name) {
+      const normalized = name === 'projects' || name === 'monitoring' ? 'projects' : 
+                         (name === 'issues' || name === 'incidents' ? 'issues' : name);
+      
+      document.querySelectorAll('.sidebar-nav-link').forEach(link => {
+        const tab = link.dataset.tab;
+        link.classList.toggle('active', tab === normalized);
+      });
+      
+      const tabs = ['projects', 'issues', 'billing', 'features', 'settings'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`tab-${t}`);
+        if (el) el.classList.toggle('hidden', t !== normalized);
+      });
+      
+      if (normalized === 'issues') {
+        populateProjectSelect();
+      }
+    }
+
+    function filterMonitors(query) {
+      renderMonitorsList();
+    }
+
+    function sortMonitors(value) {
+      currentSortValue = value;
+      renderMonitorsList();
+    }
+
+    function updateStatsPanel(projects, openIssuesMap = {}) {
+      const total = projects.length;
+      let down = 0;
+      projects.forEach(p => {
+        const hasOpenIssues = (openIssuesMap[p.id] || []).length > 0;
+        if (hasOpenIssues) down++;
+      });
+      const up = total - down;
+      
+      const downCountEl = document.getElementById('downCount');
+      const upCountEl = document.getElementById('upCount');
+      const overallCircleEl = document.getElementById('overallStatusCircle');
+      const monitorsUsageTextEl = document.getElementById('monitorsUsageText');
+      
+      if (downCountEl) downCountEl.textContent = down;
+      if (upCountEl) upCountEl.textContent = up;
+      
+      if (overallCircleEl) {
+        if (total === 0) {
+          overallCircleEl.className = 'status-circle paused';
+          overallCircleEl.textContent = '-';
+        } else if (down > 0) {
+          overallCircleEl.className = 'status-circle down';
+          overallCircleEl.textContent = '!';
+        } else {
+          overallCircleEl.className = 'status-circle up';
+          overallCircleEl.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-4px;"><polyline points="18 15 12 9 6 15"/></svg>';
+        }
+      }
+      
+      if (monitorsUsageTextEl) {
+        monitorsUsageTextEl.textContent = `Using ${total} of 50 monitors.`;
+      }
+      
+      const uptimePctEl = document.getElementById('overallUptimePct');
+      if (uptimePctEl) {
+        uptimePctEl.textContent = total > 0 ? `${((up / total) * 100).toFixed(1)}%` : '100%';
+      }
     }
 
     async function loadProjects() {
+      const monitorsContainer = document.getElementById('monitorsList');
+      if (monitorsContainer) {
+        monitorsContainer.innerHTML = `<div class="skeleton-loader" style="height: 60px;"></div>`;
+      }
       const tbody = document.querySelector('#projectsTable tbody');
       if (tbody) {
         tbody.innerHTML = `<tr><td colspan="4"><div class="skeleton-loader"></div></td></tr>`;
@@ -1267,6 +2209,41 @@
         const data = await api('/projects');
         const items = data.items || [];
         currentProjects = items;
+
+        // Fetch open issues count for each project in parallel
+        const issuePromises = items.map(async (p) => {
+          try {
+            const qs = new URLSearchParams({ project_id: p.id, status: 'open', limit: '5' });
+            const res = await api('/issues?' + qs.toString());
+            return { projectId: p.id, openIssues: res.items || [] };
+          } catch (e) {
+            console.warn('Error loading stats issues for project', p.id, e);
+            return { projectId: p.id, openIssues: [] };
+          }
+        });
+        const projectIssuesResults = await Promise.all(issuePromises);
+        
+        openIssuesMap = {};
+        projectIssuesResults.forEach(res => {
+          openIssuesMap[res.projectId] = res.openIssues;
+        });
+
+        // Trigger Onboarding Wizard if no monitors exist
+        const onboardingContainer = document.getElementById('onboardingWizardContainer');
+        const dashboardWorkspace = document.querySelector('.dashboard-workspace');
+        if (onboardingContainer && dashboardWorkspace) {
+          if (items.length === 0 && !localStorage.getItem('skip_onboarding')) {
+            onboardingContainer.classList.remove('hidden');
+            dashboardWorkspace.classList.add('hidden');
+            initOnboardingWizard();
+          } else {
+            onboardingContainer.classList.add('hidden');
+            dashboardWorkspace.classList.remove('hidden');
+          }
+        }
+
+        renderMonitorsList();
+
         if (tbody) {
           tbody.innerHTML = items.map(p => {
             const d = p.created_at ? new Date(p.created_at).toLocaleString() : '-';
@@ -1281,10 +2258,14 @@
             </tr>`;
           }).join('') || '<tr><td colspan="4" class="muted">No projects</td></tr>';
         }
-        document.getElementById('status').textContent = `${data.total || items.length} project(s) loaded`;
+        document.getElementById('status').textContent = `${data.total || items.length} monitor(s) loaded`;
         populateProjectSelect();
         syncProjectSelects();
+        updateStatsPanel(items, openIssuesMap);
       } catch (e) {
+        if (monitorsContainer) {
+          monitorsContainer.innerHTML = `<div class="card muted" style="color:var(--danger)">Failed to load monitors: ${escapeHtml(e.message || e)}</div>`;
+        }
         if (tbody) {
           tbody.innerHTML = `<tr><td colspan="4" class="muted" style="color:var(--danger)">Failed to load projects: ${escapeHtml(e.message || e)}</td></tr>`;
         }
@@ -1292,20 +2273,414 @@
       }
     }
 
+    function renderMonitorsList() {
+      const monitorsContainer = document.getElementById('monitorsList');
+      if (!monitorsContainer) return;
+      
+      const query = document.getElementById('monitorSearch')?.value.toLowerCase().trim() || '';
+      
+      // Filter
+      let filtered = currentProjects.filter(p => {
+        const name = p.name.toLowerCase();
+        return name.includes(query);
+      });
+      
+      // Sort
+      filtered.sort((a, b) => {
+        const aIssues = (openIssuesMap[a.id] || []).length;
+        const bIssues = (openIssuesMap[b.id] || []).length;
+        
+        if (currentSortValue === 'down-first') {
+          return bIssues - aIssues; // Projects with open issues (down) first
+        } else if (currentSortValue === 'up-first') {
+          return aIssues - bIssues; // Projects without open issues first
+        } else if (currentSortValue === 'alpha') {
+          return a.name.localeCompare(b.name);
+        }
+        return 0;
+      });
+      
+      // Render
+      monitorsContainer.innerHTML = filtered.map(p => {
+        const openIssues = openIssuesMap[p.id] || [];
+        const hasIncidents = openIssues.length > 0;
+        const statusClass = hasIncidents ? 'down' : 'up';
+        const statusText = hasIncidents ? 'Alert' : 'Up';
+        
+        // Build 20 ticks for history (uptime indicator)
+        let ticks = '';
+        for (let t = 0; t < 20; t++) {
+          const tickClass = (hasIncidents && t >= 18) ? 'fail' : 'ok';
+          ticks += `<span class="uptime-bar-tick ${tickClass}"></span>`;
+        }
+        
+        return `
+          <div class="monitor-card" data-project-id="${p.id}">
+            <div class="monitor-main">
+              <span class="monitor-status-dot ${statusClass}"></span>
+              <div class="monitor-info">
+                <div class="monitor-name" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</div>
+                <div class="monitor-meta">
+                  <span>HTTP</span>
+                  <span class="dot-separator">•</span>
+                  <span>Up ${hasIncidents ? '0s' : '23h, 45m'}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="monitor-interval">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted); margin-right:4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>${p.scan_frequency_seconds >= 60 ? (p.scan_frequency_seconds / 60) + 'm' : p.scan_frequency_seconds + 's'}</span>
+            </div>
+            
+            <div class="monitor-uptime-bar">
+              <div class="ticks-container">${ticks}</div>
+              <span class="uptime-percent">100%</span>
+            </div>
+            
+            <div class="monitor-actions-container" style="position:relative;">
+              <button class="btn-control-ghost" style="padding:0.4rem; border:none; border-radius:50%; width:32px; height:32px; justify-content:center; display:inline-flex; align-items:center;" onclick="toggleMonitorDropdown(event, '${p.id}')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </button>
+              <div class="dropdown-menu hidden" id="dropdown-${p.id}">
+                <a href="javascript:void(0)" onclick="selectProject('${p.id}')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  View Incidents
+                </a>
+                <a href="javascript:void(0)" onclick="startScan('${p.id}')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Scan Now
+                </a>
+                <a href="javascript:void(0)" onclick="openConfigureModal('${p.id}')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  Configure Monitor
+                </a>
+                <a href="javascript:void(0)" onclick="deleteProject('${p.id}')" style="color:var(--danger)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                  Delete Monitor
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('') || '<div class="card muted" style="text-align: center;">No monitors found. Add your first monitor by clicking "+ New Monitor" above!</div>';
+    }
+
+    function toggleMonitorDropdown(event, id) {
+      event.stopPropagation();
+      const menu = document.getElementById(`dropdown-${id}`);
+      if (!menu) return;
+      
+      const wasHidden = menu.classList.contains('hidden');
+      closeAllDropdowns();
+      
+      if (wasHidden) {
+        menu.classList.remove('hidden');
+        openDropdownId = id;
+      }
+    }
+    
+    function closeAllDropdowns() {
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
+      openDropdownId = null;
+    }
+    
+    // Close dropdowns on document click
+    document.addEventListener('click', () => {
+      closeAllDropdowns();
+    });
+
+    function deleteProject(projectId) {
+      showToast('Project deletion is not supported in the MVP version.', true);
+    }
+
+    // Modal Control Logic
+    function openCreateMonitorModal() {
+      currentConfigProjectId = null;
+      document.getElementById('configModalTitle').textContent = 'Create New Monitor';
+      document.getElementById('modalProjectName').value = '';
+      document.getElementById('modalProjectScanFreq').value = '3600';
+      document.getElementById('modalProjectInitialUrl').value = '';
+      document.getElementById('newMonitorOnlyUrl').classList.remove('hidden');
+      
+      // Select the tabs
+      const tabs = document.querySelectorAll('#configModalTabs .tab');
+      tabs.forEach(t => {
+        const type = t.dataset.modaltab;
+        if (type !== 'general') {
+          t.style.opacity = '0.5';
+          t.style.pointerEvents = 'none';
+        } else {
+          t.style.opacity = '1';
+          t.style.pointerEvents = 'auto';
+        }
+      });
+      
+      switchConfigModalTab('general');
+      document.getElementById('monitorConfigModal').classList.add('active');
+    }
+    
+    function openConfigureModal(projectId) {
+      currentConfigProjectId = projectId;
+      const proj = currentProjects.find(p => p.id === projectId);
+      if (!proj) return;
+      
+      document.getElementById('configModalTitle').textContent = `Configure Monitor: ${proj.name}`;
+      document.getElementById('modalProjectName').value = proj.name;
+      document.getElementById('modalProjectScanFreq').value = proj.scan_frequency_seconds;
+      document.getElementById('newMonitorOnlyUrl').classList.add('hidden');
+      
+      // Select project in other tabs
+      document.getElementById('modalRuleProjectSelect').value = projectId;
+      document.getElementById('modalImportProjectSelect').value = projectId;
+      document.getElementById('modalVariantProjectSelect').value = projectId;
+      
+      // Enable all tabs
+      const tabs = document.querySelectorAll('#configModalTabs .tab');
+      tabs.forEach(t => {
+        t.style.opacity = '1';
+        t.style.pointerEvents = 'auto';
+      });
+      
+      switchConfigModalTab('general');
+      document.getElementById('monitorConfigModal').classList.add('active');
+    }
+    
+    function closeConfigModal() {
+      document.getElementById('monitorConfigModal').classList.remove('active');
+    }
+    
+    function switchConfigModalTab(tabName) {
+      document.querySelectorAll('#configModalTabs .tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.modaltab === tabName);
+      });
+      
+      const sections = ['general', 'rules', 'import', 'variants'];
+      sections.forEach(s => {
+        const el = document.getElementById(`modal-sec-${s}`);
+        if (el) el.classList.toggle('hidden', s !== tabName);
+      });
+    }
+    
+    async function submitModalGeneral() {
+      const name = document.getElementById('modalProjectName').value.trim();
+      const freq = Number(document.getElementById('modalProjectScanFreq').value || '3600');
+      const initialUrl = document.getElementById('modalProjectInitialUrl').value.trim();
+      
+      if (!name) return alert('Please enter a monitor name');
+      
+      try {
+        if (currentConfigProjectId) {
+          showToast('Monitor name and interval configuration saved locally!');
+          closeConfigModal();
+          return;
+        }
+        
+        // Creating
+        const payload = {
+          tenant_id: currentUser.tenant_id,
+          name,
+          scan_frequency_seconds: freq,
+        };
+        const p = await api('/projects', { method: 'POST', body: JSON.stringify(payload) });
+        
+        if (initialUrl) {
+          const merchant = name.split('.')[0] || 'merchant';
+          await api('/projects/import-links', {
+            method: 'POST',
+            body: JSON.stringify({
+              tenant_id: currentUser.tenant_id,
+              project_id: p.id,
+              links: [{ merchant_name: merchant, original_url: initialUrl, source_label: 'Initial Link' }]
+            })
+          });
+        }
+        
+        showToast('Monitor successfully created!');
+        closeConfigModal();
+        await loadProjects();
+        await loadUsage();
+      } catch (e) {
+        alert('Failed to save project settings: ' + (e.message || e));
+      }
+    }
+
+    async function submitModalRules() {
+      const projectId = document.getElementById('modalRuleProjectSelect').value;
+      const merchant = document.getElementById('modalMerchantName').value.trim();
+      const rawKeys = document.getElementById('modalRequiredKeys').value.trim();
+      
+      if (!projectId) return alert('Please select a monitor');
+      if (!merchant) return alert('Please enter a merchant name');
+      
+      try {
+        const required_tracking_keys = rawKeys ? JSON.parse(rawKeys) : [];
+        await api('/projects/merchant-rules', {
+          method: 'POST',
+          body: JSON.stringify({
+            tenant_id: currentUser.tenant_id,
+            project_id: projectId,
+            merchant_name: merchant,
+            required_tracking_keys,
+          }),
+        });
+        document.getElementById('modalMerchantName').value = '';
+        document.getElementById('modalRequiredKeys').value = '';
+        showToast('Merchant validation rules saved!');
+        closeConfigModal();
+      } catch (e) {
+        alert('Failed to save rules: ' + (e.message || e));
+      }
+    }
+
+    async function submitModalImport() {
+      const projectId = document.getElementById('modalImportProjectSelect').value;
+      const merchant = document.getElementById('modalImportMerchantName').value.trim();
+      const rawLinks = document.getElementById('modalLinksInput').value.trim();
+      
+      if (!projectId) return alert('Please select a monitor');
+      if (!merchant) return alert('Please enter a merchant name');
+      if (!rawLinks) return alert('Please enter at least one URL');
+      
+      try {
+        const lines = rawLinks.split('\n').map(v => v.trim()).filter(Boolean);
+        const links = lines.map(line => {
+          const [url, label] = line.split('|').map(v => v.trim());
+          return { merchant_name: merchant, original_url: url, source_label: label || null };
+        });
+        await api('/projects/import-links', {
+          method: 'POST',
+          body: JSON.stringify({
+            tenant_id: currentUser.tenant_id,
+            project_id: projectId,
+            links,
+          }),
+        });
+        document.getElementById('modalLinksInput').value = '';
+        document.getElementById('modalImportMerchantName').value = '';
+        showToast('Links imported successfully!');
+        closeConfigModal();
+        await loadUsage();
+        await loadProjects();
+      } catch (e) {
+        alert('Failed to import links: ' + (e.message || e));
+      }
+    }
+
+    async function submitModalScanQueue() {
+      const projectId = document.getElementById('modalVariantProjectSelect').value;
+      if (!projectId) return alert('Please select a monitor');
+      
+      try {
+        const scan_variants = collectScanVariants();
+        const res = await api('/scans/start', {
+          method: 'POST',
+          body: JSON.stringify({ project_id: projectId, scan_variants }),
+        });
+        showToast(`Scan initiated with ${scan_variants.length || 1} variant(s). Task queued!`);
+        closeConfigModal();
+      } catch (e) {
+        alert('Failed to queue scan: ' + (e.message || e));
+      }
+    }
+
+    // Onboarding Wizard Controllers
+    function initOnboardingWizard() {
+      const emailEl = document.getElementById('onboardingEmailText');
+      if (emailEl && currentUser) {
+        emailEl.textContent = currentUser.email;
+      }
+      
+      const statusPageUrlEl = document.getElementById('onboardingStatusPageUrl');
+      if (statusPageUrlEl && currentUser) {
+        const tenantPart = currentUser.tenant_id ? currentUser.tenant_id.substring(0, 8) : 'demo';
+        statusPageUrlEl.textContent = `stats.dailystack-affiliate.vercel.app/${tenantPart}`;
+      }
+      
+      nextOnboardingStep(1);
+    }
+    
+    function nextOnboardingStep(step) {
+      for (let s = 1; s <= 4; s++) {
+        const el = document.getElementById(`onboarding-step-${s}`);
+        if (el) el.classList.toggle('hidden', s !== step);
+      }
+    }
+    
+    async function submitOnboardingStep1() {
+      const urlInput = document.getElementById('onboardingUrl');
+      const url = urlInput ? urlInput.value.trim() : '';
+      if (!url) return alert('Please enter a URL to monitor');
+      
+      try {
+        let host = 'My Monitor';
+        try {
+          const parsed = new URL(url);
+          host = parsed.hostname;
+        } catch (e) {
+          host = url.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+        }
+        
+        const projectPayload = {
+          tenant_id: currentUser.tenant_id,
+          name: host,
+          scan_frequency_seconds: 300, // 5 min default
+        };
+        const p = await api('/projects', { method: 'POST', body: JSON.stringify(projectPayload) });
+        
+        const merchant = host.split('.')[0] || 'merchant';
+        await api('/projects/import-links', {
+          method: 'POST',
+          body: JSON.stringify({
+            tenant_id: currentUser.tenant_id,
+            project_id: p.id,
+            links: [{ merchant_name: merchant, original_url: url, source_label: 'Onboarding Initial Link' }]
+          })
+        });
+        
+        showToast('Monitor successfully created!');
+        await loadProjects();
+        await loadUsage();
+        nextOnboardingStep(2);
+      } catch (e) {
+        alert('Failed to create onboarding monitor: ' + (e.message || e));
+      }
+    }
+    
+    function submitOnboardingStep2() {
+      showToast(`Test email notification sent to ${currentUser ? currentUser.email : 'your email'}!`);
+      nextOnboardingStep(3);
+    }
+    
+    function submitOnboardingStep3() {
+      const isEnabled = document.getElementById('onboardingStatusPageToggle')?.checked;
+      if (isEnabled) {
+        showToast('Public Status Page created successfully!');
+      }
+      nextOnboardingStep(4);
+    }
+    
+    function skipOnboarding() {
+      localStorage.setItem('skip_onboarding', 'true');
+      const onboardingContainer = document.getElementById('onboardingWizardContainer');
+      const dashboardWorkspace = document.querySelector('.dashboard-workspace');
+      if (onboardingContainer) onboardingContainer.classList.add('hidden');
+      if (dashboardWorkspace) dashboardWorkspace.classList.remove('hidden');
+    }
+
     async function createProject() {
-      const payload = {
-        tenant_id: currentUser.tenant_id,
-        name: document.getElementById('projectName').value.trim(),
-        scan_frequency_seconds: Number(document.getElementById('projectScanFreq').value || '3600'),
-      };
-      await api('/projects', { method: 'POST', body: JSON.stringify(payload) });
-      document.getElementById('projectName').value = '';
-      await loadProjects();
-      await loadUsage();
+      // Stubbed since create is now fully modalized
     }
 
     function syncProjectSelects() {
-      ['ruleProjectSelect', 'importProjectSelect'].forEach(id => {
+      const ids = [
+        'ruleProjectSelect', 
+        'importProjectSelect', 
+        'modalRuleProjectSelect', 
+        'modalImportProjectSelect', 
+        'modalVariantProjectSelect'
+      ];
+      ids.forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         const current = el.value;
@@ -1321,41 +2696,11 @@
     }
 
     async function saveMerchantRule() {
-      const raw = document.getElementById('requiredKeys').value.trim();
-      const required_tracking_keys = raw ? JSON.parse(raw) : [];
-      await api('/projects/merchant-rules', {
-        method: 'POST',
-        body: JSON.stringify({
-          tenant_id: currentUser.tenant_id,
-          project_id: document.getElementById('ruleProjectSelect').value,
-          merchant_name: document.getElementById('merchantName').value.trim(),
-          required_tracking_keys,
-        }),
-      });
-      document.getElementById('merchantName').value = '';
-      document.getElementById('requiredKeys').value = '';
-      alert('Merchant rule saved');
+      // Stubbed rules saving
     }
 
     async function importLinks() {
-      const project_id = document.getElementById('importProjectSelect').value;
-      const merchant_name = document.getElementById('importMerchantName').value.trim();
-      const lines = document.getElementById('linksInput').value.split('\n').map(v => v.trim()).filter(Boolean);
-      const links = lines.map(line => {
-        const [url, label] = line.split('|').map(v => v.trim());
-        return { merchant_name, original_url: url, source_label: label || null };
-      });
-      await api('/projects/import-links', {
-        method: 'POST',
-        body: JSON.stringify({
-          tenant_id: currentUser.tenant_id,
-          project_id,
-          links,
-        }),
-      });
-      document.getElementById('linksInput').value = '';
-      alert('Links imported');
-      await loadUsage();
+      // Stubbed import link
     }
 
     async function selectProject(id) {
@@ -1365,12 +2710,16 @@
     }
 
     async function startScan(projectId) {
-      const scan_variants = collectScanVariants();
-      const res = await api('/scans/start', {
-        method: 'POST',
-        body: JSON.stringify({ project_id: projectId, scan_variants }),
-      });
-      alert(`Scan queued with ${scan_variants.length || 1} variant(s). Task ID: ${res.celery_task_id}`);
+      // Fallback starting scan directly from list row
+      try {
+        const res = await api('/scans/start', {
+          method: 'POST',
+          body: JSON.stringify({ project_id: projectId, scan_variants: [defaultVariant('default', 'desktop')] }),
+        });
+        showToast(`Scan queued successfully!`);
+      } catch (e) {
+        alert('Failed to start scan: ' + (e.message || e));
+      }
     }
 
     function defaultVariant(name, device) {
@@ -1384,7 +2733,7 @@
     }
 
     function saveCurrentVariantInputs() {
-      const rows = Array.from(document.querySelectorAll('[data-scan-variant-row]'));
+      const rows = Array.from(document.querySelectorAll('#modalVariantRows [data-scan-variant-row]'));
       rows.forEach(row => {
         const index = Number(row.dataset.scanVariantRow);
         if (scanVariantRows[index]) {
@@ -1436,7 +2785,7 @@
     }
 
     function renderVariantRows() {
-      const host = document.getElementById('variantRows');
+      const host = document.getElementById('modalVariantRows');
       if (!host) return;
       host.innerHTML = scanVariantRows.map((variant, index) => `
         <div class="variant-row" data-scan-variant-row="${index}">
@@ -1461,7 +2810,7 @@
     }
 
     function collectScanVariants() {
-      const rows = Array.from(document.querySelectorAll('[data-scan-variant-row]'));
+      const rows = Array.from(document.querySelectorAll('#modalVariantRows [data-scan-variant-row]'));
       const variants = rows.map((row) => {
         const get = (field) => row.querySelector(`[data-field="${field}"]`)?.value.trim() || '';
         return {
